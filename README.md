@@ -28,8 +28,27 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`coin dash`](#coin-dash)
 * [`coin hello`](#coin-hello)
 * [`coin help [COMMAND]`](#coin-help-command)
+
+## `coin dash`
+
+Describe the command here
+
+```
+USAGE
+  $ coin dash
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.1/src/commands/dash.js)_
 
 ## `coin hello`
 
