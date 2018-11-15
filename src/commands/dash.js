@@ -1,20 +1,13 @@
-const {Command, flags} = require('@oclif/command')
+const {Command} = require('@oclif/command')
+const {cli} = require('cli-ux')
 
 class DashCommand extends Command {
   async run() {
-    const {flags} = this.parse(DashCommand)
-    const name = flags.name || 'world'
-    this.log(`hello ${name} from /home/nav/dev/coincli/src/commands/dash.js`)
+    // start a spinner here
+    cli.action.start('fetching your portfolio', {stdout: true})
+    this.log('it"s empty')
+    cli.action.stop()
   }
-}
-
-DashCommand.description = `Describe the command here
-...
-Extra documentation goes here
-`
-
-DashCommand.flags = {
-  name: flags.string({char: 'n', description: 'name to print'}),
 }
 
 module.exports = DashCommand
