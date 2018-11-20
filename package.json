@@ -11,6 +11,8 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
+    "ccxt": "^1.17.502",
+    "cli-table": "^0.3.1",
     "cli-ux": "^4.9.3"
   },
   "devDependencies": {
