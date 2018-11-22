@@ -1,4 +1,4 @@
-coincli
+coin
 =======
 
 A command line application to manage your cryptocurrency portfolio across exchanges
@@ -15,11 +15,11 @@ A command line application to manage your cryptocurrency portfolio across exchan
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g coincli
+$ npm install -g @navxio/coin
 $ coin COMMAND
 running command...
 $ coin (-v|--version|version)
-coincli/0.0.1 linux-x64 node-v11.1.0
+@navxio/coin/0.0.1 linux-x64 node-v11.2.0
 $ coin --help [COMMAND]
 USAGE
   $ coin COMMAND
@@ -34,18 +34,9 @@ USAGE
 
 ## `coin dash`
 
-Describe the command here
-
 ```
 USAGE
   $ coin dash
-
-OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
 ```
 
 _See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.1/src/commands/dash.js)_

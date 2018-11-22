@@ -1,5 +1,5 @@
 {
-  "name": "coincli",
+  "name": "@navxio/coin",
   "description": "A command line application to manage your cryptocurrency portfolio across exchanges",
   "version": "0.0.1",
   "author": "Nav Saini @navdeepio",
