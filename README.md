@@ -4,9 +4,9 @@ coin
 A command line application to manage your cryptocurrency portfolio across exchanges
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/coincli.svg)](https://npmjs.org/package/@navxio/coin)
-[![Downloads/week](https://img.shields.io/npm/dw/coincli.svg)](https://npmjs.org/package/@navxio/coin)
-[![License](https://img.shields.io/npm/l/coincli.svg)](https://github.com/navdeepio/coin/blob/master/package.json)
+[![Version](https://img.shields.io/npm/v/@navxio/coin.svg)](https://npmjs.org/package/@navxio/coin)
+[![Downloads/week](https://img.shields.io/npm/dw/@navxio/coin.svg)](https://npmjs.org/package/@navxio/coin)
+[![License](https://img.shields.io/npm/l/@navxio/coin.svg)](https://github.com/navdeepio/coin/blob/master/package.json)
 
 <!-- toc -->
 * [Usage](#usage)
