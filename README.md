@@ -2,6 +2,12 @@ coin
 =======
 
 A command line application to manage your cryptocurrency portfolio across exchanges
+| currency | exchange | amount | value |
+|----------|----------|--------|-------|
+| omisego  | kraken   | 33     | $300  |
+| bitcoin  | binance  | 0.02   | $2000 |
+| ethereum | bitfinex | 2      | $200  |
+| total    |          |        | $2500 |
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@navxio/coin.svg)](https://npmjs.org/package/@navxio/coin)
@@ -26,6 +32,10 @@ USAGE
   $ coin COMMAND
 ...
 ```
+
+# Supported Exchanges
+* Binance
+* Bitfinex
 <!-- usagestop -->
 # Commands
 <!-- commands -->
@@ -40,7 +50,7 @@ USAGE
   $ coin dash
 ```
 
-_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.2/src/commands/dash.js)
+_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.2/src/commands/dash.js)_
 
 ## `coin hello`
 
@@ -77,6 +87,13 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4/src/commands/help.ts)_
 <!-- commandsstop -->
+
+# Future Work
+* Tests
+* Place orders
+* Price preview
+* Detailed Dashboard
+* More exchanges
 
 # License
 GPL v3.0
