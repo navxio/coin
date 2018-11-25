@@ -2,13 +2,6 @@ coin
 =======
 
 A command line application to manage your cryptocurrency portfolio across exchanges
-| currency | exchange | amount | value |
-|----------|----------|--------|-------|
-| omisego  | kraken   | 33     | $300  |
-| bitcoin  | binance  | 0.02   | $2000 |
-| ethereum | bitfinex | 2      | $200  |
-| total    |          |        | $2500 |
-
 
 | currency | exchange | amount | value |
 |----------|----------|--------|-------|
