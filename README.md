@@ -18,6 +18,7 @@ A command line application to manage your cryptocurrency portfolio across exchan
 <!-- toc -->
 * [Usage](#usage)
 * [Commands](#commands)
+* [Future Work](#future-work)
 * [License](#license)
 <!-- tocstop -->
 # Usage
@@ -27,16 +28,12 @@ $ npm install -g @navxio/coin
 $ coin COMMAND
 running command...
 $ coin (-v|--version|version)
-@navxio/coin/0.0.2 linux-x64 node-v11.2.0
+@navxio/coin/0.0.4 linux-x64 node-v11.2.0
 $ coin --help [COMMAND]
 USAGE
   $ coin COMMAND
 ...
 ```
-
-# Supported Exchanges
-* Binance
-* Bitfinex
 <!-- usagestop -->
 # Commands
 <!-- commands -->
@@ -51,7 +48,7 @@ USAGE
   $ coin dash
 ```
 
-_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.2/src/commands/dash.js)_
+_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.4/src/commands/dash.js)_
 
 ## `coin hello`
 
@@ -69,7 +66,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.0.2/src/commands/hello.js)_
+_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.0.4/src/commands/hello.js)_
 
 ## `coin help [COMMAND]`
 
