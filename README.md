@@ -86,6 +86,36 @@ OPTIONS
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4/src/commands/help.ts)_
 <!-- commandsstop -->
 
+# Supported Exchanges
+* kraken
+* binance
+* bitfinex
+
+
+# Configuration
+
+Need to setup the apiKeys and secrets of each enabled exchange in config.json at the following location
+
+    Unix: ~/.config/mycli
+    Windows: %LOCALAPPDATA%\mycli
+    Can be overridden with XDG_CONFIG_HOME
+
+
+Example Configuration File
+
+```
+{
+  "binance": {
+    "apiKey": "binance-api-key",
+    "secret": "my-binance-secret"
+  },
+  "bitfinex": {
+    "apiKey": "bitfinex-api-key",
+    "secret": "my-bitfinex-secret"
+  }
+}
+```
+
 # Future Work
 * Tests
 * Place orders
