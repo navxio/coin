@@ -23,14 +23,25 @@ A command line application to manage your cryptocurrency portfolio across exchan
 * [Future Work](#future-work)
 * [License](#license)
 <!-- tocstop -->
+# Install
+
+With npm
+
+```
+[sudo] npm i -g @navxio/coin
+```
+With yarn
+```
+yarn global add @navxio/coin
+```
+
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g @navxio/coin
 $ coin COMMAND
 running command...
 $ coin (-v|--version|version)
-@navxio/coin/0.0.5 linux-x64 node-v11.3.0
+@navxio/coin/0.0.6 linux-x64 node-v11.3.0
 $ coin --help [COMMAND]
 USAGE
   $ coin COMMAND
@@ -50,7 +61,7 @@ USAGE
   $ coin dash
 ```
 
-_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.5/src/commands/dash.js)_
+_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.6/src/commands/dash.js)_
 
 ## `coin hello`
 
@@ -68,7 +79,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.0.5/src/commands/hello.js)_
+_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.0.6/src/commands/hello.js)_
 
 ## `coin help [COMMAND]`
 
