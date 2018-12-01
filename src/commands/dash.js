@@ -11,7 +11,12 @@ class DashCommand extends Command {
   async run() {
     // start a spinner here
     cli.action.start('fetching your portfolio', {stdout: true})
-    const userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
+    let userConfig = null
+    try {
+      userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
+    } catch (error) {
+      this.log('Error opening config file')
+    }
 
     if (userConfig.kraken) {
       let KrakenExchange = ccxt.kraken
@@ -42,7 +47,6 @@ class DashCommand extends Command {
         enableRateLimit: true,
       })
     }
-
     // fetch portfolio here
     // and populate to the table
     cli.action.stop()
