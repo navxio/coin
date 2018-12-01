@@ -16,7 +16,7 @@ A command line application to manage your cryptocurrency portfolio across exchan
 [![License](https://img.shields.io/npm/l/@navxio/coin.svg)](https://github.com/navdeepio/coin/blob/master/package.json)
 
 <!-- toc -->
-* [Install](#install)
+* [Installation](#installation)
 * [Usage](#usage)
 * [Commands](#commands)
 * [Supported Exchanges](#supported-exchanges)
@@ -24,7 +24,7 @@ A command line application to manage your cryptocurrency portfolio across exchan
 * [Future Work](#future-work)
 * [License](#license)
 <!-- tocstop -->
-# Install
+# Installation
 
 With npm
 
@@ -43,7 +43,7 @@ $ npm install -g @navxio/coin
 $ coin COMMAND
 running command...
 $ coin (-v|--version|version)
-@navxio/coin/0.0.7 linux-x64 node-v11.3.0
+@navxio/coin/0.0.8 linux-x64 node-v11.3.0
 $ coin --help [COMMAND]
 USAGE
   $ coin COMMAND
@@ -63,7 +63,7 @@ USAGE
   $ coin dash
 ```
 
-_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.7/src/commands/dash.js)_
+_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.8/src/commands/dash.js)_
 
 ## `coin hello`
 
@@ -81,7 +81,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.0.7/src/commands/hello.js)_
+_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.0.8/src/commands/hello.js)_
 
 ## `coin help [COMMAND]`
 
