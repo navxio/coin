@@ -3,6 +3,8 @@ coin
 
 A command line application to manage your cryptocurrency portfolio across exchanges
 
+## Note: In early stages of development
+
 | currency | exchange | amount | value |
 |----------|----------|--------|-------|
 | omisego  | kraken   | 33     | $300  |
