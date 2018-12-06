@@ -26,6 +26,7 @@ class DashCommand extends Command {
         timeout: 3000,
         enableRateLimit: true,
       })
+      this.log(kraken)
     }
 
     if (userConfig.binance) {
@@ -36,6 +37,7 @@ class DashCommand extends Command {
         timeout: 3000,
         enableRateLimit: true,
       })
+      // this.log(binance)
     }
 
     if (userConfig.bitfinex) {
@@ -46,6 +48,7 @@ class DashCommand extends Command {
         timeout: 3000,
         enableRateLimit: true,
       })
+      this.log(bitfinex)
     }
     // fetch portfolio here
     // and populate to the table
