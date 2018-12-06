@@ -69,7 +69,7 @@ $ npm install -g @navxio/coin
 $ coin COMMAND
 running command...
 $ coin (-v|--version|version)
-@navxio/coin/0.0.9 linux-x64 node-v11.3.0
+@navxio/coin/0.0.10 linux-x64 node-v11.3.0
 $ coin --help [COMMAND]
 USAGE
   $ coin COMMAND
@@ -89,7 +89,7 @@ USAGE
   $ coin dash
 ```
 
-_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.9/src/commands/dash.js)_
+_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.10/src/commands/dash.js)_
 
 ## `coin hello`
 
@@ -107,7 +107,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.0.9/src/commands/hello.js)_
+_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.0.10/src/commands/hello.js)_
 
 ## `coin help [COMMAND]`
 
