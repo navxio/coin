@@ -19,10 +19,10 @@ A command line application to manage your cryptocurrency portfolio across exchan
 
 <!-- toc -->
 * [Installation](#installation)
+* [Configuration](#configuration)
 * [Usage](#usage)
 * [Commands](#commands)
 * [Supported Exchanges](#supported-exchanges)
-* [Configuration](#configuration)
 * [Future Work](#future-work)
 * [License](#license)
 <!-- tocstop -->
@@ -36,6 +36,30 @@ With npm
 With yarn
 ```
 yarn global add @navxio/coin
+```
+
+# Configuration
+
+Need to setup the apiKeys and secrets of each enabled exchange in config.json at the following location
+
+    Unix: ~/.config/@navxio/coin
+    Windows: %LOCALAPPDATA%\@navxio\coin
+    Can be overridden with XDG_CONFIG_HOME
+
+
+Example Configuration File
+
+```
+{
+  "binance": {
+    "apiKey": "binance-api-key",
+    "secret": "my-binance-secret"
+  },
+  "bitfinex": {
+    "apiKey": "bitfinex-api-key",
+    "secret": "my-bitfinex-secret"
+  }
+}
 ```
 
 # Usage
@@ -107,31 +131,6 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4
 * [Binance](https://www.binance.com)
 * [Bitfinex](https://www.bitfinex.com)
 * [Kraken](https://www.kraken.com)
-
-
-# Configuration
-
-Need to setup the apiKeys and secrets of each enabled exchange in config.json at the following location
-
-    Unix: ~/.config/@navxio/coin
-    Windows: %LOCALAPPDATA%\@navxio\coin
-    Can be overridden with XDG_CONFIG_HOME
-
-
-Example Configuration File
-
-```
-{
-  "binance": {
-    "apiKey": "binance-api-key",
-    "secret": "my-binance-secret"
-  },
-  "bitfinex": {
-    "apiKey": "bitfinex-api-key",
-    "secret": "my-bitfinex-secret"
-  }
-}
-```
 
 # Future Work
 * Tests
