@@ -15,7 +15,7 @@ class DashCommand extends Command {
     try {
       userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
     } catch (error) {
-      this.log('Error opening config file')
+      this.log('Error reading config file')
     }
 
     if (userConfig.kraken) {
@@ -26,7 +26,7 @@ class DashCommand extends Command {
         timeout: 3000,
         enableRateLimit: true,
       })
-      this.log(kraken)
+      this.log(await kraken.fetchBalance())
     }
 
     if (userConfig.binance) {
@@ -37,12 +37,12 @@ class DashCommand extends Command {
         timeout: 3000,
         enableRateLimit: true,
       })
-      // this.log(binance)
+      this.log(await binance.fetchBalance())
     }
 
     if (userConfig.bitfinex) {
       let BitFinexExchange = ccxt.bitfinex
-      binance = new BitFinexExchange({
+      bitfinex = new BitFinexExchange({
         apiKey: userConfig.bitfinex.apiKey,
         secret: userConfig.bitfinex.secret,
         timeout: 3000,

@@ -129,7 +129,6 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4
 
 # Supported Exchanges
 * [Binance](https://www.binance.com)
-* [Bitfinex](https://www.bitfinex.com)
 * [Kraken](https://www.kraken.com)
 
 # Future Work
