@@ -5,12 +5,11 @@ const path = require('path')
 let ccxt = require('ccxt')
 let kraken = null
 let binance = null
-let bitfinex = null
 
 class DashCommand extends Command {
   async run() {
     // start a spinner here
-    cli.action.start('fetching your portfolio', {stdout: true})
+    cli.action.start('Fetching your portfolio.. ')
     let userConfig = null
     try {
       userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
@@ -40,18 +39,6 @@ class DashCommand extends Command {
       this.log(await binance.fetchBalance())
     }
 
-    if (userConfig.bitfinex) {
-      let BitFinexExchange = ccxt.bitfinex
-      bitfinex = new BitFinexExchange({
-        apiKey: userConfig.bitfinex.apiKey,
-        secret: userConfig.bitfinex.secret,
-        timeout: 3000,
-        enableRateLimit: true,
-      })
-      this.log(bitfinex)
-    }
-    // fetch portfolio here
-    // and populate to the table
     cli.action.stop()
   }
 }
