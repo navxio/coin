@@ -5,11 +5,16 @@ const path = require('path')
 let ccxt = require('ccxt')
 let kraken = null
 let binance = null
+const Table = require('cli-table')
+
+const table = new Table({
+  head: ['Cryptocurrency', 'Exchange', 'Amount', 'Value'],
+})
 
 class DashCommand extends Command {
   async run() {
     // start a spinner here
-    cli.action.start('Fetching your portfolio.. ')
+    cli.action.start('Fetching your portfolio')
     let userConfig = null
     try {
       userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
@@ -25,7 +30,21 @@ class DashCommand extends Command {
         timeout: 3000,
         enableRateLimit: true,
       })
-      this.log(await kraken.fetchBalance())
+      let portfolio = null
+      try {
+        portfolio = await kraken.fetchBalance()
+      } catch (error) {
+        this.log('error fetching kraken')
+      }
+
+      if (portfolio) {
+        let total = portfolio.total
+        for (var currency in total) {
+          if (total.hasOwnProperty(currency) && total[currency] > 0) {
+            table.push([currency, 'Kraken', total[currency], '10'])
+          }
+        }
+      }
     }
 
     if (userConfig.binance) {
@@ -36,8 +55,24 @@ class DashCommand extends Command {
         timeout: 3000,
         enableRateLimit: true,
       })
-      this.log(await binance.fetchBalance())
+
+      let portfolio = null
+      try {
+        portfolio = await binance.fetchBalance()
+      } catch (error) {
+        this.log('error fetching binance')
+      }
+      if (portfolio) {
+        let total = portfolio.total
+        for (var currency in total) {
+          if (total.hasOwnProperty(currency) && total[currency] > 0) {
+            table.push([currency, 'Binance', total[currency], '10'])
+          }
+        }
+      }
     }
+
+    this.log(table.toString())
 
     cli.action.stop()
   }
