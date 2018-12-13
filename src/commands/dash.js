@@ -39,8 +39,8 @@ class DashCommand extends Command {
 
       if (portfolio) {
         let total = portfolio.total
-        for (var currency in total) {
-          if (total.hasOwnProperty(currency) && total[currency] > 0) {
+        for (const currency of Object.keys(total)) {
+          if (total[currency] > 0) {
             table.push([currency, 'Kraken', total[currency], '10'])
           }
         }
@@ -64,8 +64,8 @@ class DashCommand extends Command {
       }
       if (portfolio) {
         let total = portfolio.total
-        for (var currency in total) {
-          if (total.hasOwnProperty(currency) && total[currency] > 0) {
+        for (const currency of Object.keys(total)) {
+          if (total[currency] > 0) {
             table.push([currency, 'Binance', total[currency], '10'])
           }
         }
