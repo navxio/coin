@@ -3,8 +3,6 @@ const {cli} = require('cli-ux')
 const fs = require('fs-extra')
 const path = require('path')
 let ccxt = require('ccxt')
-let kraken = null
-let binance = null
 const Table = require('cli-table')
 
 const table = new Table({
@@ -24,7 +22,7 @@ class DashCommand extends Command {
 
     if (userConfig.kraken) {
       let KrakenExchange = ccxt.kraken
-      kraken = new KrakenExchange({
+      let kraken = new KrakenExchange({
         apiKey: userConfig.kraken.apiKey,
         secret: userConfig.kraken.secret,
         timeout: 3000,
@@ -49,7 +47,7 @@ class DashCommand extends Command {
 
     if (userConfig.binance) {
       let BinanceExchange = ccxt.binance
-      binance = new BinanceExchange({
+      let binance = new BinanceExchange({
         apiKey: userConfig.binance.apiKey,
         secret: userConfig.binance.secret,
         timeout: 3000,
@@ -72,9 +70,8 @@ class DashCommand extends Command {
       }
     }
 
-    this.log(table.toString())
-
     cli.action.stop()
+    this.log(table.toString())
   }
 }
 
