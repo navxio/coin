@@ -69,7 +69,7 @@ $ npm install -g @navxio/coin
 $ coin COMMAND
 running command...
 $ coin (-v|--version|version)
-@navxio/coin/0.0.11 linux-x64 node-v11.4.0
+@navxio/coin/0.0.12 linux-x64 node-v11.4.0
 $ coin --help [COMMAND]
 USAGE
   $ coin COMMAND
@@ -81,6 +81,7 @@ USAGE
 * [`coin dash`](#coin-dash)
 * [`coin hello`](#coin-hello)
 * [`coin help [COMMAND]`](#coin-help-command)
+* [`coin setup`](#coin-setup)
 
 ## `coin dash`
 
@@ -89,7 +90,7 @@ USAGE
   $ coin dash
 ```
 
-_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.11/src/commands/dash.js)_
+_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.0.12/src/commands/dash.js)_
 
 ## `coin hello`
 
@@ -107,7 +108,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.0.11/src/commands/hello.js)_
+_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.0.12/src/commands/hello.js)_
 
 ## `coin help [COMMAND]`
 
@@ -125,6 +126,24 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4/src/commands/help.ts)_
+
+## `coin setup`
+
+Describe the command here
+
+```
+USAGE
+  $ coin setup
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.0.12/src/commands/setup.js)_
 <!-- commandsstop -->
 
 # Supported Exchanges
