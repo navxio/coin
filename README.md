@@ -79,6 +79,8 @@ USAGE
 # Commands
 <!-- commands -->
 * [`coin dash`](#coin-dash)
+* [`coin exchange`](#coin-exchange)
+* [`coin hello`](#coin-hello)
 * [`coin help [COMMAND]`](#coin-help-command)
 * [`coin setup`](#coin-setup)
 
@@ -91,9 +93,45 @@ USAGE
 
 _See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.1.0/src/commands/dash.js)_
 
+## `coin exchange`
+
+Describe the command here
+
+```
+USAGE
+  $ coin exchange
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.0/src/commands/exchange.js)_
+
+## `coin hello`
+
+Describe the command here
+
+```
+USAGE
+  $ coin hello
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.1.0/src/commands/hello.js)_
+
 ## `coin help [COMMAND]`
 
-Display help for coin
+display help for coin
 
 ```
 USAGE
@@ -118,7 +156,7 @@ USAGE
 
 DESCRIPTION
   ***
-  Command should be run at first launch
+  Command be run at first launch
 ```
 
 _See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.0/src/commands/setup.js)_
