@@ -69,7 +69,7 @@ $ npm install -g @navxio/coin
 $ coin COMMAND
 running command...
 $ coin (-v|--version|version)
-@navxio/coin/0.1.0 linux-x64 node-v11.4.0
+@navxio/coin/0.1.1 linux-x64 node-v11.4.0
 $ coin --help [COMMAND]
 USAGE
   $ coin COMMAND
@@ -91,7 +91,7 @@ USAGE
   $ coin dash
 ```
 
-_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.1.0/src/commands/dash.js)_
+_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.1.1/src/commands/dash.js)_
 
 ## `coin exchange`
 
@@ -109,7 +109,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.0/src/commands/exchange.js)_
+_See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.1/src/commands/exchange.js)_
 
 ## `coin hello`
 
@@ -127,7 +127,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.1.0/src/commands/hello.js)_
+_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.1.1/src/commands/hello.js)_
 
 ## `coin help [COMMAND]`
 
@@ -159,7 +159,7 @@ DESCRIPTION
   Command be run at first launch
 ```
 
-_See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.0/src/commands/setup.js)_
+_See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.1/src/commands/setup.js)_
 <!-- commandsstop -->
 
 # Supported Exchanges
@@ -170,9 +170,9 @@ _See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.0
 * Tests
 * Place orders
 * Price preview
-* Detailed Dashboard
+* Detailed dashboard
 * More exchanges
-* CLI prefs
+* Preferences
 
 # License
 GPL v3.0
