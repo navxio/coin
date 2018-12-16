@@ -94,7 +94,7 @@ _See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.1.3/
 
 ## `coin exchange`
 
-Generic exchange related configuration
+Exchange related configuration
 
 ```
 USAGE
@@ -103,8 +103,8 @@ USAGE
 OPTIONS
   -a, --available      Supported exchanges
   -e, --enabled        Enabled exchanges
-  -r, --remove=remove  Remove an exchange from coin
-  -s, --setup=setup    Set up a new exchange
+  -r, --remove=<exchange>  Remove an exchange from coin
+  -s, --setup=<exchange>    Set up a new exchange
 ```
 
 _See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.3/src/commands/exchange.js)_
