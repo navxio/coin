@@ -69,7 +69,7 @@ $ npm install -g @navxio/coin
 $ coin COMMAND
 running command...
 $ coin (-v|--version|version)
-@navxio/coin/0.1.1 linux-x64 node-v11.4.0
+@navxio/coin/0.1.2 linux-x64 node-v11.4.0
 $ coin --help [COMMAND]
 USAGE
   $ coin COMMAND
@@ -80,7 +80,6 @@ USAGE
 <!-- commands -->
 * [`coin dash`](#coin-dash)
 * [`coin exchange`](#coin-exchange)
-* [`coin hello`](#coin-hello)
 * [`coin help [COMMAND]`](#coin-help-command)
 * [`coin setup`](#coin-setup)
 
@@ -91,43 +90,24 @@ USAGE
   $ coin dash
 ```
 
-_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.1.1/src/commands/dash.js)_
+_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.1.2/src/commands/dash.js)_
 
 ## `coin exchange`
 
-Describe the command here
+Generic exchange related configuration
 
 ```
 USAGE
   $ coin exchange
 
 OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
+  -a, --available  Supported exchanges
+  -e, --enabled    Enabled exchanges
+  --remove=remove  Remove an exchange from coin
+  --setup=setup    Set up a new exchange
 ```
 
-_See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.1/src/commands/exchange.js)_
-
-## `coin hello`
-
-Describe the command here
-
-```
-USAGE
-  $ coin hello
-
-OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
-```
-
-_See code: [src/commands/hello.js](https://github.com/navdeepio/coin/blob/v0.1.1/src/commands/hello.js)_
+_See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.2/src/commands/exchange.js)_
 
 ## `coin help [COMMAND]`
 
@@ -159,7 +139,7 @@ DESCRIPTION
   Command be run at first launch
 ```
 
-_See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.1/src/commands/setup.js)_
+_See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.2/src/commands/setup.js)_
 <!-- commandsstop -->
 
 # Supported Exchanges
