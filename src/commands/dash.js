@@ -80,4 +80,8 @@ class DashCommand extends Command {
   }
 }
 
+DashCommand.description = `
+Display user portfolio in tabular form
+`
+
 module.exports = DashCommand

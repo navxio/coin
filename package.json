@@ -11,6 +11,7 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1.9.0",
     "@oclif/plugin-help": "^2",
+    "@oclif/plugin-not-found": "^1.2.2",
     "ccxt": "^1.17.502",
     "cli-table": "^0.3.1",
     "cli-ux": "^4.9.3",
@@ -49,7 +50,8 @@
     "commands": "./src/commands",
     "bin": "coin",
     "plugins": [
-      "@oclif/plugin-help"
+      "@oclif/plugin-help",
+      "@oclif/plugin-not-found"
     ]
   },
   "repository": "navdeepio/coin",
