@@ -11,6 +11,7 @@ const table = new Table({
 
 class DashCommand extends Command {
   async run() {
+    let nonEmpty = false
     // start a spinner here
     cli.action.start('Fetching your portfolio')
     let userConfig = null
@@ -41,6 +42,7 @@ class DashCommand extends Command {
         for (const currency of Object.keys(total)) {
           if (total[currency] > 0) {
             table.push([currency, 'Kraken', total[currency]])
+            nonEmpty = true
           }
         }
       }
@@ -66,12 +68,15 @@ class DashCommand extends Command {
         for (const currency of Object.keys(total)) {
           if (total[currency] > 0) {
             table.push([currency, 'Binance', total[currency]])
+            nonEmpty = true
           }
         }
       }
     }
     cli.action.stop()
-    this.log(table.toString())
+    if (nonEmpty) {
+      this.log(table.toString())
+    }
   }
 }
 
