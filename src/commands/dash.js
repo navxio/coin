@@ -33,7 +33,7 @@ class DashCommand extends Command {
       try {
         portfolio = await kraken.fetchBalance()
       } catch (error) {
-        this.log('error fetching kraken')
+        this.log('Error fetching kraken')
       }
       // can fetch ticker data for particular symbols
       // by passing in an array for argument ['eth/usd', 'xlm/usd']
@@ -61,7 +61,7 @@ class DashCommand extends Command {
       try {
         portfolio = await binance.fetchBalance()
       } catch (error) {
-        this.log('error fetching binance')
+        this.log('Error fetching binance')
       }
       if (portfolio) {
         let total = portfolio.total

@@ -49,7 +49,5 @@ class SetupCommand extends Command {
 }
 
 SetupCommand.description = `Run through the setup wizard
-***
-Command be run at first launch
 `
 module.exports = SetupCommand

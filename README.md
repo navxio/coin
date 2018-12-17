@@ -69,7 +69,7 @@ $ npm install -g @navxio/coin
 $ coin COMMAND
 running command...
 $ coin (-v|--version|version)
-@navxio/coin/0.1.4 linux-x64 node-v11.4.0
+@navxio/coin/0.1.5 linux-x64 node-v11.4.0
 $ coin --help [COMMAND]
 USAGE
   $ coin COMMAND
@@ -85,12 +85,17 @@ USAGE
 
 ## `coin dash`
 
+Display user portfolio in tabular form
+
 ```
 USAGE
   $ coin dash
+
+DESCRIPTION
+  Display user portfolio in tabular form
 ```
 
-_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.1.4/src/commands/dash.js)_
+_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.1.5/src/commands/dash.js)_
 
 ## `coin exchange`
 
@@ -107,7 +112,7 @@ OPTIONS
   -s, --setup=setup    Setup a new exchange
 ```
 
-_See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.4/src/commands/exchange.js)_
+_See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.5/src/commands/exchange.js)_
 
 ## `coin help [COMMAND]`
 
@@ -139,7 +144,7 @@ DESCRIPTION
   Command be run at first launch
 ```
 
-_See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.4/src/commands/setup.js)_
+_See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.5/src/commands/setup.js)_
 <!-- commandsstop -->
 
 # Supported Exchanges
