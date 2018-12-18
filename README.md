@@ -3,8 +3,6 @@ coin
 
 A command line application to manage your cryptocurrency portfolio across exchanges
 
-## Note: In early stages of development
-
 | currency | exchange | amount | value |
 |----------|----------|--------|-------|
 | omisego  | kraken   | 33     | $300  |
@@ -69,7 +67,7 @@ $ npm install -g @navxio/coin
 $ coin COMMAND
 running command...
 $ coin (-v|--version|version)
-@navxio/coin/0.1.5 linux-x64 node-v11.4.0
+@navxio/coin/0.1.6 linux-x64 node-v11.4.0
 $ coin --help [COMMAND]
 USAGE
   $ coin COMMAND
@@ -81,7 +79,9 @@ USAGE
 * [`coin dash`](#coin-dash)
 * [`coin exchange`](#coin-exchange)
 * [`coin help [COMMAND]`](#coin-help-command)
+* [`coin kraken`](#coin-kraken)
 * [`coin setup`](#coin-setup)
+* [`coin update [CHANNEL]`](#coin-update-channel)
 
 ## `coin dash`
 
@@ -95,7 +95,7 @@ DESCRIPTION
   Display user portfolio in tabular form
 ```
 
-_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.1.5/src/commands/dash.js)_
+_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.1.6/src/commands/dash.js)_
 
 ## `coin exchange`
 
@@ -112,7 +112,7 @@ OPTIONS
   -s, --setup=setup    Setup a new exchange
 ```
 
-_See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.5/src/commands/exchange.js)_
+_See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.6/src/commands/exchange.js)_
 
 ## `coin help [COMMAND]`
 
@@ -131,6 +131,24 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4/src/commands/help.ts)_
 
+## `coin kraken`
+
+Describe the command here
+
+```
+USAGE
+  $ coin kraken
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/kraken.js](https://github.com/navdeepio/coin/blob/v0.1.6/src/commands/kraken.js)_
+
 ## `coin setup`
 
 Run through the setup wizard
@@ -138,13 +156,20 @@ Run through the setup wizard
 ```
 USAGE
   $ coin setup
-
-DESCRIPTION
-  ***
-  Command be run at first launch
 ```
 
-_See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.5/src/commands/setup.js)_
+_See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.6/src/commands/setup.js)_
+
+## `coin update [CHANNEL]`
+
+update the coin CLI
+
+```
+USAGE
+  $ coin update [CHANNEL]
+```
+
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v1.3.9/src/commands/update.ts)_
 <!-- commandsstop -->
 
 # Supported Exchanges
@@ -153,6 +178,7 @@ _See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.5
 
 # Future Work
 * Tests
+* Delegate exchange related functionality to plugins
 * Place orders
 * Price preview
 * Detailed dashboard
