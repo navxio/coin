@@ -24,6 +24,7 @@
     "@oclif/dev-cli": "^1",
     "@oclif/test": "^1",
     "chai": "^4",
+    "debug": "^4.1.0",
     "eslint": "^5.5",
     "eslint-config-oclif": "^3.1",
     "globby": "^8",
@@ -54,7 +55,11 @@
       "@oclif/plugin-help",
       "@oclif/plugin-not-found",
       "@oclif/plugin-update"
-    ]
+    ],
+    "hooks": {
+      "init": "./src/hooks/init/start",
+      "prerun": "./src/hooks/prerun/myhook"
+    }
   },
   "repository": "navdeepio/coin",
   "scripts": {
