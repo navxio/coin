@@ -10,6 +10,7 @@ A command line application to manage your cryptocurrency portfolio across exchan
 | ethereum | bitfinex | 2      | $200  |
 | total    |          |        | $2500 |
 
+#### Note: Under heavy development
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@navxio/coin.svg)](https://npmjs.org/package/@navxio/coin)
 [![Downloads/week](https://img.shields.io/npm/dw/@navxio/coin.svg)](https://npmjs.org/package/@navxio/coin)
@@ -177,13 +178,12 @@ _See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v1
 * [Kraken](https://www.kraken.com)
 
 # Future Work
-* Tests
-* Delegate exchange related functionality to plugins
 * Place orders
 * Price preview
 * Detailed dashboard
 * More exchanges
-* Preferences
+* Coin Preferences
+* Delegate exchange related functionality to plugins
 
 # License
 GPL v3.0
