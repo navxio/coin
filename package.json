@@ -57,8 +57,6 @@
       "@oclif/plugin-update"
     ],
     "hooks": {
-      "init": "./src/hooks/init/start",
-      "prerun": "./src/hooks/prerun/myhook"
     }
   },
   "repository": "navdeepio/coin",

@@ -20,7 +20,7 @@ class SetupCommand extends Command {
         setup = true
       }
     } catch (error) {
-      this.log(error)
+      this.error(error)
     }
     if (setup) {
       let answers = await inquirer.prompt([{type: 'checkbox', message: 'Select the exchanges you wish to activate', choices: ['Kraken', 'Binance'], name: 'exchanges'}])
@@ -30,6 +30,7 @@ class SetupCommand extends Command {
         let obj = await inquirer.prompt([{type: 'input', message: 'API Key', name: 'apiKey'}])
         subConfig.apiKey = obj.apiKey
         obj = await inquirer.prompt([{type: 'input', message: 'API Secret', name: 'secret'}])
+        this.log('OK')
         subConfig.secret = obj.secret
         config.kraken = subConfig
       }
@@ -39,6 +40,7 @@ class SetupCommand extends Command {
         let obj = await inquirer.prompt([{type: 'input', message: 'API Key', name: 'apiKey'}])
         subConfig.apiKey = obj.apiKey
         obj = await inquirer.prompt([{type: 'input', message: 'API Secret', name: 'secret'}])
+        this.log('OK')
         subConfig.secret = obj.secret
         config.binance = subConfig
       }

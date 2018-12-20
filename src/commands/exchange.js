@@ -22,7 +22,7 @@ class ExchangeCommand extends Command {
         }
         this.log(enabled.join('\n'))
       } catch (error) {
-        this.log('Error reading config file')
+        this.exit('Error reading config file')
       }
     }
     if (flags.setup) {
@@ -33,7 +33,7 @@ class ExchangeCommand extends Command {
         try {
           userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
         } catch (error) {
-          this.log('Error reading config file, will exit.')
+          this.exit('Error reading config file')
         }
         if (exchange in userConfig) {
           let {confirm} = await inquirer.prompt([{type: 'confirm', message: 'Exchange ' + exchange + ' already exists in config. Overwrite?'}])
@@ -70,7 +70,7 @@ class ExchangeCommand extends Command {
       try {
         userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
       } catch (error) {
-        this.log('Error reading config file, will exit.')
+        this.exit('Error reading config file')
       }
       if (supportedExchanges.indexOf(exchange) > -1) {
         let {confirm} = await inquirer.prompt([{type: 'confirm', message: 'Are you sure you want to remove ' + exchange, name: 'confirm'}])

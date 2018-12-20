@@ -12,6 +12,7 @@ class DashCommand extends Command {
     if (flags.detailed) {
       let CUR = 'USD'   // account's default currency, fixed for now
       let lines = []   // array to hold precursor data for table
+      let totalValue = 0    // variable to track total value of portfolio
       let table = new Table({
         head: ['Cryptocurrency', 'Exchange', 'Amount', 'Value'],
       })
@@ -22,7 +23,7 @@ class DashCommand extends Command {
       try {
         userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
       } catch (error) {
-        this.log('Error reading config file')
+        this.exit('Error reading config file')
       }
 
       if (userConfig.kraken) {
@@ -39,7 +40,7 @@ class DashCommand extends Command {
         try {
           portfolio = await kraken.fetchBalance()
         } catch (error) {
-          this.log('Error fetching kraken')
+          this.error('Error fetching kraken')
         }
         if (portfolio) {
           const {total} = portfolio
@@ -52,7 +53,7 @@ class DashCommand extends Command {
           try {
             krakenTickers = await kraken.fetchTickers(krakenTickerParams)
           } catch (error) {
-            this.log('Error fetching kraken tickers')
+            this.error('Error fetching kraken tickers')
           }
           if (krakenTickers) {
             // push these values to the table
@@ -60,11 +61,13 @@ class DashCommand extends Command {
               let ticker = krakenTickers[line.symbol.toUpperCase() + '/' + CUR]
               let average = (ticker.open + ticker.close) / 2
               let value = line.amount * average
+              totalValue += value
               table.push([line.symbol, 'Kraken', line.amount, value])
             })
           }
         }
       }
+      table.push(['Total', '', '', totalValue])
       cli.action.stop()
       if (nonEmpty) {
         this.log(table.toString())
@@ -80,7 +83,7 @@ class DashCommand extends Command {
       try {
         userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
       } catch (error) {
-        this.log('Error reading config file')
+        this.exit('Error reading config file')
       }
       if (userConfig.kraken) {
         let KrakenExchange = ccxt.kraken
@@ -94,7 +97,7 @@ class DashCommand extends Command {
         try {
           portfolio = await kraken.fetchBalance()
         } catch (error) {
-          this.log('Error fetching kraken')
+          this.error('Error fetching kraken')
         }
         if (portfolio) {
           let total = portfolio.total
@@ -118,7 +121,7 @@ class DashCommand extends Command {
         try {
           portfolio = await binance.fetchBalance()
         } catch (error) {
-          this.log('Error fetching binance')
+          this.error('Error fetching binance')
         }
         if (portfolio) {
           let total = portfolio.total
