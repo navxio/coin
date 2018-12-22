@@ -23,7 +23,7 @@ class SetupCommand extends Command {
       this.error(error)
     }
     if (setup) {
-      let answers = await inquirer.prompt([{type: 'checkbox', message: 'Select the exchanges you wish to activate', choices: ['Kraken', 'Binance'], name: 'exchanges'}])
+      let answers = await inquirer.prompt([{type: 'checkbox', message: 'Select the exchanges you wish to activate', choices: ['Kraken', 'Binance', 'Bitfinex'], name: 'exchanges'}])
       if (answers.exchanges.indexOf('Kraken') > -1) {
         let subConfig = {}
         this.log('Please input config variables for Kraken')
@@ -43,6 +43,16 @@ class SetupCommand extends Command {
         this.log('OK')
         subConfig.secret = obj.secret
         config.binance = subConfig
+      }
+      if (answers.exchanges.indexOf('Bitfinex') > -1) {
+        let subConfig = {}
+        this.log('Please input config variables for Bitfinex')
+        let obj = await inquirer.prompt([{type: 'input', message: 'API Key', name: 'apiKey'}])
+        subConfig.apiKey = obj.apiKey
+        obj = await inquirer.prompt([{type: 'input', message: 'API Secret', name: 'secret'}])
+        this.log('OK')
+        subConfig.secret = obj.secret
+        config.bitfinex = subConfig
       }
       fs.writeJsonSync(path.join(this.config.configDir, 'config.json'), config)
       this.log('Successfully wrote ' + (path.join(this.config.configDir, 'config.json')))

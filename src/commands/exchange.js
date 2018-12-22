@@ -7,7 +7,7 @@ class ExchangeCommand extends Command {
   async run() {
     const {flags} = this.parse(ExchangeCommand)
     if (flags.available) {
-      this.log('Kraken\nBinance')
+      this.log('Kraken\nBinance\nBitfinex')
     }
     if (flags.enabled) {
       let enabled = []
@@ -20,13 +20,16 @@ class ExchangeCommand extends Command {
         if (userConfig.binance) {
           enabled.push('Binance')
         }
+        if (userConfig.bitfinex) {
+          enabled.push('Bitfinex')
+        }
         this.log(enabled.join('\n'))
       } catch (error) {
         this.exit('Error reading config file')
       }
     }
     if (flags.setup) {
-      let supportedExchanges = ['kraken', 'binance']
+      let supportedExchanges = ['kraken', 'binance', 'bitfinex']
       let exchange = flags.setup
       let userConfig = null
       if (supportedExchanges.indexOf(exchange) > -1) {
@@ -66,7 +69,7 @@ class ExchangeCommand extends Command {
     if (flags.remove) {
       let exchange = flags.remove
       let userConfig = null
-      let supportedExchanges = ['kraken', 'binance']
+      let supportedExchanges = ['kraken', 'binance', 'bitfinex']
       try {
         userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
       } catch (error) {

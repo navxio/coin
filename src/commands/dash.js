@@ -181,6 +181,32 @@ class DashCommand extends Command {
           }
         }
       }
+
+      if (userConfig.bitfinex) {
+        let BitfinexExchange = ccxt.bitfinex
+        let bitfinex = new BitfinexExchange({
+          apiKey: userConfig.bitfinex.apiKey,
+          secret: userConfig.bitfiex.secret,
+          timeout: 3000,
+          enableRateLimit: true,
+        })
+        let portfolio = null
+        try {
+          portfolio = await bitfinex.fetchBalance()
+        } catch (error) {
+          this.log('Bitfinex returned an error')
+          debug(error)
+        }
+        if (portfolio) {
+          let total = portfolio.total
+          for (const currency of Object.keys(total)) {
+            if (total[currency] > 0) {
+              table.push([currency, 'Bitfinex', total[currency]])
+              nonEmpty = true
+            }
+          }
+        }
+      }
       cli.action.stop()
       if (nonEmpty) {
         this.log(table.toString())
