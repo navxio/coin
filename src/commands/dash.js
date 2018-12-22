@@ -1,217 +1,84 @@
 const {Command, flags} = require('@oclif/command')
-const {cli} = require('cli-ux')
 const fs = require('fs-extra')
 const path = require('path')
 const Table = require('cli-table')
+const _ = require('lodash')
 const ccxt = require('ccxt')
 const debug = require('debug')('coin')
+const Listr = require('listr')
 
 class DashCommand extends Command {
-  async run() {
+  run() {
     const {flags} = this.parse(DashCommand)
+    let table = null
+    let userConfig = {}
+    try {
+      userConfig = fs.readJsonSync(path.join(this.config.configDir, 'config.json'))
+    } catch (error) {
+      this.exit('Cannot find / read config file')
+    }
     if (flags.detailed) {
-      let CUR = 'USD'   // account's default currency, fixed for now
-      let lines = []   // array to hold precursor data for table
-      let totalValue = 0    // variable to track total value of portfolio
-      let table = new Table({
-        head: ['Cryptocurrency', 'Exchange', 'Amount', 'Value'],
-      })
-      let nonEmpty = false
-      cli.action.start('Fetching detailed portfolio')
-      let userConfig = null
-
-      try {
-        userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
-      } catch (error) {
-        this.exit('Error reading config file')
-      }
-
-      if (userConfig.kraken) {
-        let KrakenExchange = ccxt.kraken
-        let kraken = new KrakenExchange({
-          apiKey: userConfig.kraken.apiKey,
-          secret: userConfig.kraken.secret,
-          timeout: 10000,
-          enableRateLimit: true,
-        })
-        let krakenTickerParams = []
-        let krakenTickers = null
-        let portfolio = null
-        try {
-          portfolio = await kraken.fetchBalance()
-        } catch (error) {
-          this.error('Kraken returned an error')
-          debug(error)
-        }
-        if (portfolio) {
-          const {total} = portfolio
-          for (const currency of Object.keys(total)) {
-            if (total[currency] > 0) {
-              krakenTickerParams.push(currency.toUpperCase() + '/' + CUR)
-              lines.push({symbol: currency, amount: total[currency], value: -1})
-            }
-          }
-          try {
-            krakenTickers = await kraken.fetchTickers(krakenTickerParams)
-          } catch (error) {
-            this.error('Error fetching kraken tickers')
-          }
-          if (krakenTickers) {
-            // push these values to the table
-            lines.forEach(line => {
-              let ticker = krakenTickers[line.symbol.toUpperCase() + '/' + CUR]
-              let average = (ticker.open + ticker.close) / 2
-              let value = line.amount * average
-              totalValue += value
-              table.push([line.symbol, 'Kraken', line.amount, value])
-            })
-          }
-        }
-      }
-      if (userConfig.binance) {
-        let BinanceExchange = ccxt.binance
-        let binance = new BinanceExchange({
-          apiKey: userConfig.binance.apiKey,
-          secret: userConfig.binance.secret,
-          timeout: 3000,
-          enableRateLimit: true,
-        })
-        let binanceTickerParams = []
-        let binanceTickers = null
-        let portfolio = null
-        lines = []
-
-        try {
-          portfolio = await binance.fetchBalance()
-        } catch (error) {
-          this.error('Error fetching binance')
-          debug(error)
-        }
-        if (portfolio) {
-          const {total} = portfolio
-          for (const currency of Object.keys(total)) {
-            if (total[currency] > 0) {
-              binanceTickerParams.push(currency.toUpperCase() + '/' + CUR)
-              lines.push({symbol: currency, amount: total[currency], value: -1})
-            }
-          }
-          try {
-            binanceTickers = await binance.fetchTickers(binanceTickerParams)
-          } catch (error) {
-            this.error('Fetching binance tickers')
-            debug(error)
-          }
-
-          if (binanceTickers) {
-            lines.forEach(line => {
-              let ticker = binanceTickerParams[line.symbol.toUpperCase() + '/' + CUR]
-              let average = (ticker.open + ticker.close) / 2
-              let value = line.amount * average
-              totalValue += value
-              table.push([line.symbol, 'Binance', line.amount, value])
-            })
-          }
-        }
-      }
-      table.push(['Total', '', '', totalValue])
-      cli.action.stop()
-      if (nonEmpty) {
-        this.log(table.toString())
-      }
+      this.log('Fetching detailed portfolio')
     } else {
-      let table = new Table({
+      this.log('Fetching portfolio...')
+      table = new Table({
         head: ['Cryptocurrency', 'Exchange', 'Amount'],
       })
-      let nonEmpty = false
-      // start a spinner here
-      cli.action.start('Fetching portfolio')
-      let userConfig = null
-      try {
-        userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
-      } catch (error) {
-        this.exit('Error reading config file')
-      }
-      if (userConfig.kraken) {
-        let KrakenExchange = ccxt.kraken
-        let kraken = new KrakenExchange({
-          apiKey: userConfig.kraken.apiKey,
-          secret: userConfig.kraken.secret,
-          timeout: 10000,
+      let exchanges = []
+      for (const exchange of Object.keys(userConfig)) {
+        const ExchangeClass = ccxt[exchange]
+        const config = userConfig[exchange]
+        const exchangeClass = new ExchangeClass({
+          apiKey: config.apiKey,
+          secret: config.secret,
+          timeout: 30000,
           enableRateLimit: true,
         })
-        let portfolio = null
-        try {
-          portfolio = await kraken.fetchBalance()
-        } catch (error) {
-          this.log('Kraken returned an error')
-          debug(error)
+        exchanges.push({exchange, eClass: exchangeClass})
+      }
+      let tasksArray = _.map(exchanges, obj => {
+        return {
+          title: this.capitalize(obj.exchange),
+          task: ctx =>
+            obj.eClass.fetchBalance().then(({total}) => {
+              const name = obj.exchange
+              let portfolio = {}
+              for (const currency of Object.keys(total)) {
+                if (total[currency] > 0) {
+                  portfolio[currency] = total[currency]
+                }
+              }
+              ctx[name] = portfolio
+            }).catch(error => {
+              throw error
+            }),
         }
-        if (portfolio) {
-          let total = portfolio.total
-          for (const currency of Object.keys(total)) {
-            if (total[currency] > 0) {
-              table.push([currency, 'Kraken', total[currency]])
-              nonEmpty = true
-            }
+      })
+      let tasks = new Listr(tasksArray, {concurrent: true, exitOnError: false})
+      tasks.run().then(context => {
+        // push it to table now
+        for (const exchange of Object.keys(context)) {
+          const portfolio = context[exchange]
+          for (const symbol of Object.keys(portfolio)) {
+            table.push([symbol, this.capitalize(exchange), portfolio[symbol]])
           }
         }
-      }
-      if (userConfig.binance) {
-        let BinanceExchange = ccxt.binance
-        let binance = new BinanceExchange({
-          apiKey: userConfig.binance.apiKey,
-          secret: userConfig.binance.secret,
-          timeout: 3000,
-          enableRateLimit: true,
-        })
-        let portfolio = null
-        try {
-          portfolio = await binance.fetchBalance()
-        } catch (error) {
-          this.log('Binance returned an error')
-          debug(error)
-        }
-        if (portfolio) {
-          let total = portfolio.total
-          for (const currency of Object.keys(total)) {
-            if (total[currency] > 0) {
-              table.push([currency, 'Binance', total[currency]])
-              nonEmpty = true
-            }
-          }
-        }
-      }
-
-      if (userConfig.bitfinex) {
-        let BitfinexExchange = ccxt.bitfinex
-        let bitfinex = new BitfinexExchange({
-          apiKey: userConfig.bitfinex.apiKey,
-          secret: userConfig.bitfiex.secret,
-          timeout: 3000,
-          enableRateLimit: true,
-        })
-        let portfolio = null
-        try {
-          portfolio = await bitfinex.fetchBalance()
-        } catch (error) {
-          this.log('Bitfinex returned an error')
-          debug(error)
-        }
-        if (portfolio) {
-          let total = portfolio.total
-          for (const currency of Object.keys(total)) {
-            if (total[currency] > 0) {
-              table.push([currency, 'Bitfinex', total[currency]])
-              nonEmpty = true
-            }
-          }
-        }
-      }
-      cli.action.stop()
-      if (nonEmpty) {
         this.log(table.toString())
-      }
+      }).catch(error => {
+        const {context} = error
+        for (const exchange of Object.keys(context)) {
+          const portfolio = context[exchange]
+          for (const symbol of Object.keys(portfolio)) {
+            table.push([symbol, this.capitalize(exchange), portfolio[symbol]])
+          }
+        }
+        this.log(table.toString())
+      })
     }
+  }
+
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
   }
 }
 

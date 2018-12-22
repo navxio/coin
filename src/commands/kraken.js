@@ -15,8 +15,6 @@ KrakenCommand.description = `Describe the command here
 ...
 Extra documentation goes here
 `
-KrakenCommand.args = [
-  {name: 'symbol'}
-]
+KrakenCommand.args = [{name: 'symbol'}]
 
 module.exports = KrakenCommand

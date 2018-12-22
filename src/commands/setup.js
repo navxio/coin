@@ -1,5 +1,4 @@
 const {Command} = require('@oclif/command')
-const {cli} = require('cli-ux')
 const fs = require('fs-extra')
 const path = require('path')
 const inquirer = require('inquirer')
@@ -8,7 +7,7 @@ class SetupCommand extends Command {
   async run() {
     let config = {}
     let setup = false
-    cli.info('Welcome to Coin!')
+    this.log('Welcome to Coin!')
     try {
       let exists = await fs.pathExists(path.join(this.config.configDir, 'config.json'))
       if (exists) {
