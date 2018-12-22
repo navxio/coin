@@ -56,8 +56,7 @@
       "@oclif/plugin-not-found",
       "@oclif/plugin-update"
     ],
-    "hooks": {
-    }
+    "hooks": {}
   },
   "repository": "navdeepio/coin",
   "scripts": {

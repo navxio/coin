@@ -4,11 +4,11 @@ const fs = require('fs-extra')
 const path = require('path')
 const Table = require('cli-table')
 const ccxt = require('ccxt')
+const debug = require('debug')('coin')
 
 class DashCommand extends Command {
   async run() {
     const {flags} = this.parse(DashCommand)
-
     if (flags.detailed) {
       let CUR = 'USD'   // account's default currency, fixed for now
       let lines = []   // array to hold precursor data for table
@@ -31,7 +31,7 @@ class DashCommand extends Command {
         let kraken = new KrakenExchange({
           apiKey: userConfig.kraken.apiKey,
           secret: userConfig.kraken.secret,
-          timeout: 3000,
+          timeout: 10000,
           enableRateLimit: true,
         })
         let krakenTickerParams = []
@@ -40,7 +40,8 @@ class DashCommand extends Command {
         try {
           portfolio = await kraken.fetchBalance()
         } catch (error) {
-          this.error('Error fetching kraken')
+          this.error('Kraken returned an error')
+          debug(error)
         }
         if (portfolio) {
           const {total} = portfolio
@@ -67,6 +68,51 @@ class DashCommand extends Command {
           }
         }
       }
+      if (userConfig.binance) {
+        let BinanceExchange = ccxt.binance
+        let binance = new BinanceExchange({
+          apiKey: userConfig.binance.apiKey,
+          secret: userConfig.binance.secret,
+          timeout: 3000,
+          enableRateLimit: true,
+        })
+        let binanceTickerParams = []
+        let binanceTickers = null
+        let portfolio = null
+        lines = []
+
+        try {
+          portfolio = await binance.fetchBalance()
+        } catch (error) {
+          this.error('Error fetching binance')
+          debug(error)
+        }
+        if (portfolio) {
+          const {total} = portfolio
+          for (const currency of Object.keys(total)) {
+            if (total[currency] > 0) {
+              binanceTickerParams.push(currency.toUpperCase() + '/' + CUR)
+              lines.push({symbol: currency, amount: total[currency], value: -1})
+            }
+          }
+          try {
+            binanceTickers = await binance.fetchTickers(binanceTickerParams)
+          } catch (error) {
+            this.error('Fetching binance tickers')
+            debug(error)
+          }
+
+          if (binanceTickers) {
+            lines.forEach(line => {
+              let ticker = binanceTickerParams[line.symbol.toUpperCase() + '/' + CUR]
+              let average = (ticker.open + ticker.close) / 2
+              let value = line.amount * average
+              totalValue += value
+              table.push([line.symbol, 'Binance', line.amount, value])
+            })
+          }
+        }
+      }
       table.push(['Total', '', '', totalValue])
       cli.action.stop()
       if (nonEmpty) {
@@ -78,7 +124,7 @@ class DashCommand extends Command {
       })
       let nonEmpty = false
       // start a spinner here
-      cli.action.start('Fetching your portfolio')
+      cli.action.start('Fetching portfolio')
       let userConfig = null
       try {
         userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
@@ -90,14 +136,15 @@ class DashCommand extends Command {
         let kraken = new KrakenExchange({
           apiKey: userConfig.kraken.apiKey,
           secret: userConfig.kraken.secret,
-          timeout: 3000,
+          timeout: 10000,
           enableRateLimit: true,
         })
         let portfolio = null
         try {
           portfolio = await kraken.fetchBalance()
         } catch (error) {
-          this.error('Error fetching kraken')
+          this.log('Kraken returned an error')
+          debug(error)
         }
         if (portfolio) {
           let total = portfolio.total
@@ -121,7 +168,8 @@ class DashCommand extends Command {
         try {
           portfolio = await binance.fetchBalance()
         } catch (error) {
-          this.error('Error fetching binance')
+          this.log('Binance returned an error')
+          debug(error)
         }
         if (portfolio) {
           let total = portfolio.total
