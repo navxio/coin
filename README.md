@@ -176,6 +176,7 @@ _See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v1
 # Supported Exchanges
 * [Binance](https://www.binance.com)
 * [Kraken](https://www.kraken.com)
+* [Bitfinex](https://www.bitfinex.com)
 
 # Future Work
 * Place orders
