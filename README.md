@@ -164,12 +164,11 @@ _See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v1
 * [Bitfinex](https://www.bitfinex.com)
 
 # Future Work
+* Delegate exchange related functionality to plugins
 * Place orders
 * Price preview
-* Detailed dashboard
 * More exchanges
 * Coin Preferences
-* Delegate exchange related functionality to plugins
 
 # License
 GPL v3.0
