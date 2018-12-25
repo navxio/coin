@@ -80,8 +80,9 @@ USAGE
 * [`coin dash`](#coin-dash)
 * [`coin exchange`](#coin-exchange)
 * [`coin help [COMMAND]`](#coin-help-command)
-* [`coin kraken [SYMBOL]`](#coin-kraken-symbol)
+* [`coin order`](#coin-order)
 * [`coin setup`](#coin-setup)
+* [`coin ticker`](#coin-ticker)
 * [`coin update [CHANNEL]`](#coin-update-channel)
 
 ## `coin dash`
@@ -93,7 +94,8 @@ USAGE
   $ coin dash
 
 OPTIONS
-  -d, --detailed  Detailed portfolio with values across exchanges
+  -d, --detailed           Detailed portfolio with values across exchanges
+  -e, --exchange=exchange  The exchange to fetch the portfolio from
 
 DESCRIPTION
   Display user portfolio in tabular form
@@ -135,6 +137,24 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4/src/commands/help.ts)_
 
+## `coin order`
+
+Describe the command here
+
+```
+USAGE
+  $ coin order
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/order.js](https://github.com/navdeepio/coin/blob/v0.1.7/src/commands/order.js)_
+
 ## `coin setup`
 
 Run through the setup wizard
@@ -145,6 +165,24 @@ USAGE
 ```
 
 _See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.7/src/commands/setup.js)_
+
+## `coin ticker`
+
+Describe the command here
+
+```
+USAGE
+  $ coin ticker
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/ticker.js](https://github.com/navdeepio/coin/blob/v0.1.7/src/commands/ticker.js)_
 
 ## `coin update [CHANNEL]`
 
@@ -164,7 +202,7 @@ _See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v1
 * [Bitfinex](https://www.bitfinex.com)
 
 # Future Work
-* Delegate exchange related functionality to plugins
+* Delegate functionality to plugins
 * Place orders
 * Price preview
 * More exchanges
