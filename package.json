@@ -66,6 +66,7 @@
     "posttest": "eslint .",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "jest \"test/**/*.test.js\"",
-    "version": "oclif-dev readme && git add README.md"
+    "version": "oclif-dev readme && git add README.md",
+    "dev-ticker": "DEBUG=worker:* bin/run ticker kraken eth"
   }
 }
