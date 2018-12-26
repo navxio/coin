@@ -80,7 +80,6 @@ USAGE
 * [`coin dash`](#coin-dash)
 * [`coin exchange`](#coin-exchange)
 * [`coin help [COMMAND]`](#coin-help-command)
-* [`coin order`](#coin-order)
 * [`coin setup`](#coin-setup)
 * [`coin ticker [EXCHANGE] [SYMBOL]`](#coin-ticker-exchange-symbol)
 * [`coin update [CHANNEL]`](#coin-update-channel)
@@ -137,24 +136,6 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4/src/commands/help.ts)_
 
-## `coin order`
-
-Describe the command here
-
-```
-USAGE
-  $ coin order
-
-OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
-```
-
-_See code: [src/commands/order.js](https://github.com/navdeepio/coin/blob/v0.1.8/src/commands/order.js)_
-
 ## `coin setup`
 
 Run through the setup wizard
@@ -197,7 +178,6 @@ _See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v1
 # Future Work
 * Delegate functionality to plugins
 * Place orders
-* Price preview
 * More exchanges
 * Coin Preferences
 
