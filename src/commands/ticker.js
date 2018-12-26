@@ -1,10 +1,10 @@
 const {Command} = require('@oclif/command')
 const fs = require('fs-extra')
 const path = require('path')
-const ccxt = require('ccxt')
 const Table = require('cli-table')
 const ora = require('ora')
 const dlog = require('debug')('worker:a')
+const coinTicker = require('coin-ticker')
 
 class TickerCommand extends Command {
   async run() {
@@ -31,18 +31,10 @@ class TickerCommand extends Command {
           dlog('Found ' + exchange + ' in userconfig')
           // proceed
           ora('Loading ...').start()
-          const ExchangeClass = ccxt[exchange]
-          const config = userConfig[exchange]
-          const exchangeClass = new ExchangeClass({
-            apiKey: config.apiKey,
-            secret: config.secret,
-            timeout: 30000,
-            enableRateLimit: true,
-          })
           let ticker = null
           dlog('Fetching the ticker for ' + symbol.toUpperCase() + '/' + CUR)
           try {
-            ticker = await exchangeClass.fetchTicker(symbol.toUpperCase() + '/' + CUR)
+            ticker = await coinTicker(exchange, symbol.toUpperCase() + '_' + CUR)
           } catch (error) {
             this.log(this.capitalize(exchange) + ' returned an error')
             this.exit()

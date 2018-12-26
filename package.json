@@ -31,8 +31,7 @@
     "eslint": "^5.5",
     "eslint-config-oclif": "^3.1",
     "globby": "^8",
-    "mocha": "^5",
-    "nyc": "^13"
+    "jest": "^23.6.0"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -66,7 +65,7 @@
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint .",
     "prepack": "oclif-dev manifest && oclif-dev readme",
-    "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
+    "test": "jest \"test/**/*.test.js\"",
     "version": "oclif-dev readme && git add README.md"
   }
 }
