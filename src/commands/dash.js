@@ -12,7 +12,6 @@ class DashCommand extends Command {
     let table = null
     let userConfig = {}
     let exchanges = []
-    let CUR = 'USD' // fixed at USD for now
     try {
       userConfig = fs.readJsonSync(path.join(this.config.configDir, 'config.json'))
     } catch (error) {
@@ -39,105 +38,48 @@ class DashCommand extends Command {
         this.log('Sorry, said exchange is not supported or configured.')
       }
     } else {
-      if (flags.detailed) {
-        this.log('Fetching detailed portfolio...')
-        table = new Table({
-          head: ['Cryptocurrency', 'Exchange', 'Amount', 'Value'],
-        })
-        let tasksArray = _.map(exchanges, obj => {
-          return {
-            title: this.capitalize(obj.exchange),
-            task: ctx =>  obj.eClass.fetchBalance().then(({total}) => {
-              let params = []
+      this.log('Fetching portfolio...')
+      table = new Table({
+        head: ['Cryptocurrency', 'Exchange', 'Amount'],
+      })
+      let tasksArray = _.map(exchanges, obj => {
+        return {
+          title: this.capitalize(obj.exchange),
+          task: ctx =>
+            obj.eClass.fetchBalance().then(({total}) => {
               const name = obj.exchange
               let portfolio = {}
-              for (const symbol of Object.keys(total)) {
-                if (total[symbol] > 0) {
-                  params.push(symbol + '/' + CUR)
-                  portfolio[symbol] = total[symbol]
+              for (const currency of Object.keys(total)) {
+                if (total[currency] > 0) {
+                  portfolio[currency] = total[currency]
                 }
               }
               ctx[name] = portfolio
-              ctx.arr = ctx.arr || []
-              return obj.eClass.fetchTickers(params)
-            }).then(tickers => {
-              const name = obj.exchange
-              let portfolio = ctx[name]
-              ctx = []
-              for (const symbol of Object.keys(portfolio)) {
-                const ticker = tickers[symbol + '/' + CUR]
-                const avg = (ticker.open + ticker.close) / 2
-                const amount = portfolio[symbol]
-                ctx.arr.push({symbol, name, amount, value: avg * amount})
-              }
             }).catch(error => {
               throw error
             }),
+        }
+      })
+      let tasks = new Listr(tasksArray, {concurrent: true, exitOnError: false})
+      tasks.run().then(context => {
+        // push it to table now
+        for (const exchange of Object.keys(context)) {
+          const portfolio = context[exchange]
+          for (const symbol of Object.keys(portfolio)) {
+            table.push([symbol, this.capitalize(exchange), portfolio[symbol]])
           }
-        })
-        let tasks = new Listr(tasksArray, {concurrent: true, exitOnError: false})
-        tasks.run().then(context => {
-          // debrief the context and update the table
-          const {arr} = context
-          if (arr.length > 0) {
-            _.forEach(arr, value => {
-              table.push([value.symbol, value.name, value.amount, value.value])
-            })
+        }
+        this.log(table.toString())
+      }).catch(error => {
+        const {context} = error
+        for (const exchange of Object.keys(context)) {
+          const portfolio = context[exchange]
+          for (const symbol of Object.keys(portfolio)) {
+            table.push([symbol, this.capitalize(exchange), portfolio[symbol]])
           }
-        }).catch(error => {
-          const {context} = error
-          // populate the table
-          const {arr} = context
-          if (arr.length > 0) {
-            _.forEach(arr, value => {
-              table.push([value.symbol, value.name, value.amount, value.value])
-            })
-          }
-        })
-      } else {
-        this.log('Fetching portfolio...')
-        table = new Table({
-          head: ['Cryptocurrency', 'Exchange', 'Amount'],
-        })
-        let tasksArray = _.map(exchanges, obj => {
-          return {
-            title: this.capitalize(obj.exchange),
-            task: ctx =>
-              obj.eClass.fetchBalance().then(({total}) => {
-                const name = obj.exchange
-                let portfolio = {}
-                for (const currency of Object.keys(total)) {
-                  if (total[currency] > 0) {
-                    portfolio[currency] = total[currency]
-                  }
-                }
-                ctx[name] = portfolio
-              }).catch(error => {
-                throw error
-              }),
-          }
-        })
-        let tasks = new Listr(tasksArray, {concurrent: true, exitOnError: false})
-        tasks.run().then(context => {
-          // push it to table now
-          for (const exchange of Object.keys(context)) {
-            const portfolio = context[exchange]
-            for (const symbol of Object.keys(portfolio)) {
-              table.push([symbol, this.capitalize(exchange), portfolio[symbol]])
-            }
-          }
-          this.log(table.toString())
-        }).catch(error => {
-          const {context} = error
-          for (const exchange of Object.keys(context)) {
-            const portfolio = context[exchange]
-            for (const symbol of Object.keys(portfolio)) {
-              table.push([symbol, this.capitalize(exchange), portfolio[symbol]])
-            }
-          }
-          this.log(table.toString())
-        })
-      }
+        }
+        this.log(table.toString())
+      })
     }
   }
 

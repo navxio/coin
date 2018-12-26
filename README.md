@@ -94,7 +94,6 @@ USAGE
   $ coin dash
 
 OPTIONS
-  -d, --detailed           Detailed portfolio with values across exchanges
   -e, --exchange=exchange  The exchange to fetch the portfolio from
 
 DESCRIPTION
