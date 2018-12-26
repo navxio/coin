@@ -68,7 +68,7 @@ $ npm install -g @navxio/coin
 $ coin COMMAND
 running command...
 $ coin (-v|--version|version)
-@navxio/coin/0.1.7 linux-x64 node-v11.5.0
+@navxio/coin/0.1.8 linux-x64 node-v11.5.0
 $ coin --help [COMMAND]
 USAGE
   $ coin COMMAND
@@ -82,7 +82,7 @@ USAGE
 * [`coin help [COMMAND]`](#coin-help-command)
 * [`coin order`](#coin-order)
 * [`coin setup`](#coin-setup)
-* [`coin ticker`](#coin-ticker)
+* [`coin ticker [EXCHANGE] [SYMBOL]`](#coin-ticker-exchange-symbol)
 * [`coin update [CHANNEL]`](#coin-update-channel)
 
 ## `coin dash`
@@ -94,13 +94,14 @@ USAGE
   $ coin dash
 
 OPTIONS
+  -d, --detailed           Detailed portfolio with values across exchanges
   -e, --exchange=exchange  The exchange to fetch the portfolio from
 
 DESCRIPTION
   Display user portfolio in tabular form
 ```
 
-_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.1.7/src/commands/dash.js)_
+_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.1.8/src/commands/dash.js)_
 
 ## `coin exchange`
 
@@ -117,7 +118,7 @@ OPTIONS
   -s, --setup=setup    Setup a new exchange
 ```
 
-_See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.7/src/commands/exchange.js)_
+_See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.8/src/commands/exchange.js)_
 
 ## `coin help [COMMAND]`
 
@@ -152,7 +153,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/order.js](https://github.com/navdeepio/coin/blob/v0.1.7/src/commands/order.js)_
+_See code: [src/commands/order.js](https://github.com/navdeepio/coin/blob/v0.1.8/src/commands/order.js)_
 
 ## `coin setup`
 
@@ -163,25 +164,18 @@ USAGE
   $ coin setup
 ```
 
-_See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.7/src/commands/setup.js)_
+_See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.8/src/commands/setup.js)_
 
-## `coin ticker`
+## `coin ticker [EXCHANGE] [SYMBOL]`
 
-Describe the command here
+Fetch the ticker for a symbol for an exchange
 
 ```
 USAGE
-  $ coin ticker
-
-OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
+  $ coin ticker [EXCHANGE] [SYMBOL]
 ```
 
-_See code: [src/commands/ticker.js](https://github.com/navdeepio/coin/blob/v0.1.7/src/commands/ticker.js)_
+_See code: [src/commands/ticker.js](https://github.com/navdeepio/coin/blob/v0.1.8/src/commands/ticker.js)_
 
 ## `coin update [CHANNEL]`
 
