@@ -2,7 +2,7 @@ const {Command} = require('@oclif/command')
 const fs = require('fs-extra')
 const path = require('path')
 const Table = require('cli-table')
-const ora = require('ora')
+const {cli} = require('cli-ux')
 const dlog = require('debug')('worker:a')
 const coinTicker = require('coin-ticker')
 
@@ -27,26 +27,24 @@ class TickerCommand extends Command {
         // an exchange was specified
         // if it
         dlog('Found the exchange ' + exchange)
-        if (exchange in userConfig) {
-          dlog('Found ' + exchange + ' in userconfig')
-          // proceed
-          ora('Loading ...').start()
-          let ticker = null
-          dlog('Fetching the ticker for ' + symbol.toUpperCase() + '/' + CUR)
-          try {
-            ticker = await coinTicker(exchange, symbol.toUpperCase() + '_' + CUR)
-          } catch (error) {
-            this.log(this.capitalize(exchange) + ' returned an error')
-            this.exit()
-          }
-          table = new Table({
-            head: ['Market Cap', '24h Volume', 'Circulating Supply', 'Total Suply', '1h %', '24h %', '7d %'],
-          })
-          this.log(ticker)
-        } else {
-          this.error('The specified exchange is unsupported or unconfigured.')
+        // proceed
+        if (!(exchange in userConfig)) {
+          this.log('Warning: Exchange ' + exchange + ' may be unsupported')
+        }
+        cli.action.start('Loading')
+        let ticker = null
+        dlog('Fetching the ticker for ' + symbol.toUpperCase() + '/' + CUR)
+        try {
+          ticker = await coinTicker(exchange, symbol.toUpperCase() + '_' + CUR)
+        } catch (error) {
+          this.log(this.capitalize(exchange) + ' returned an error')
           this.exit()
         }
+        table = new Table({
+          head: ['Market Cap', '24h Volume', 'Circulating Supply', 'Total Suply', '1h %', '24h %', '7d %'],
+        })
+        cli.action.stop()
+        this.log(ticker)
       } else {
         // fetch ticker from all exchanges
         table = new Table({

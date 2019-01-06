@@ -89,12 +89,12 @@ class ExchangeCommand extends Command {
   }
 }
 
-ExchangeCommand.description = `Exchange related configuration
+ExchangeCommand.description = `Configure exchanges with Coin
 `
 
 ExchangeCommand.flags = {
-  available: flags.boolean({char: 'a', description: 'Supported exchanges'}),
-  enabled: flags.boolean({char: 'e', description: 'Enabled exchanges'}),
+  available: flags.boolean({char: 'a', description: 'List supported exchanges'}),
+  enabled: flags.boolean({char: 'e', description: 'List enabled exchanges'}),
   setup: flags.string({char: 's', description: 'Setup a new exchange'}),
   remove: flags.string({char: 'r', description: 'Remove an exchange from coin'}),
 }

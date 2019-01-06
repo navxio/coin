@@ -3,15 +3,15 @@ const {expect, test} = require('@oclif/test')
 describe('ticker', () => {
   test
   .stdout()
-  .command(['ticker'])
-  .it('runs hello', ctx => {
-    expect(ctx.stdout).to.contain('hello world')
+  .command(['coin ticker unsupported-exchange btc'])
+  .it('complains about unsupported exchange', ctx => {
+    expect(ctx.stdout).to.contain('Unsupported exchange')
   })
 
   test
   .stdout()
-  .command(['ticker', '--name', 'jeff'])
-  .it('runs hello --name jeff', ctx => {
-    expect(ctx.stdout).to.contain('hello jeff')
+  .command(['coin ticker kraken'])
+  .it('complains about missing symbol', ctx => {
+    expect(ctx.stdout).to.contain('Missing symbol')
   })
 })
