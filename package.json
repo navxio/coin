@@ -17,6 +17,7 @@
     "ccxt": "^1.17.502",
     "cli-table": "^0.3.1",
     "cli-ux": "^5.0.0",
+    "coin-ticker": "^3.2.0",
     "fs-extra": "^7.0.1",
     "inquirer": "^6.2.1",
     "listr": "^0.14.3",
@@ -69,6 +70,6 @@
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
     "version": "oclif-dev readme && git add README.md",
-    "dev-ticker": "DEBUG=worker:* bin/run ticker kraken eth"
+    "dev-ticker": "DEBUG=worker:* bin/run ticker unsupported_exchange eth"
   }
 }

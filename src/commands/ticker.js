@@ -11,8 +11,7 @@ class TickerCommand extends Command {
     const {args} = this.parse(TickerCommand)
     const {symbol, exchange} = args
     let userConfig = null
-    const CUR = 'USD'  // fixed for now
-    let table = null
+    const CUR = 'USD'  // hardcoded for now
     try {
       userConfig = fs.readJSONSync(path.join(this.config.configDir, 'config.json'))
     } catch (error) {
@@ -28,33 +27,32 @@ class TickerCommand extends Command {
         // if it
         dlog('Found the exchange ' + exchange)
         // proceed
-        if (!(exchange in userConfig)) {
-          this.log('Warning: Exchange ' + exchange + ' may be unsupported')
+        if (exchange in userConfig) {
+          cli.action.start('Loading')
+          let ticker = null
+          dlog('Fetching the ticker for ' + symbol.toUpperCase() + '/' + CUR)
+          try {
+            ticker = await coinTicker(exchange, symbol.toUpperCase() + '_' + CUR)
+          } catch (error) {
+            this.log(this.capitalize(exchange) + ' returned an error')
+          }
+          dlog('Ticker is ' + ticker)
+          let table = new Table({
+            head: ['Ask', 'Bid', 'Last', 'Volume', 'Low', 'High'],
+          })
+          const {ask, bid, last, vol, low, high} = ticker
+          table.push([ask, bid, last, vol, low, high])
+          cli.action.stop()
+          this.log(table.toString())
+        } else {
+          this.log('Exchange "' + this.capitalize(exchange) + '" is unsupported')
         }
-        cli.action.start('Loading')
-        let ticker = null
-        dlog('Fetching the ticker for ' + symbol.toUpperCase() + '/' + CUR)
-        try {
-          ticker = await coinTicker(exchange, symbol.toUpperCase() + '_' + CUR)
-        } catch (error) {
-          this.log(this.capitalize(exchange) + ' returned an error')
-          this.exit()
-        }
-        table = new Table({
-          head: ['Market Cap', '24h Volume', 'Circulating Supply', 'Total Suply', '1h %', '24h %', '7d %'],
-        })
-        cli.action.stop()
-        this.log(ticker)
       } else {
         // fetch ticker from all exchanges
-        table = new Table({
-          head: ['Exchange', 'Market Cap', '24h Volume', 'Circulating Supply', 'Total Suply', '1h %', '24h %', '7d %'],
-        })
+        this.log('No exchange specified. Will exit.')
       }
-      this.log(table.toString())
     } else {
-      this.log('Sorry please specify a symbol.')
-      this.exit()
+      this.log('Symbol or exchange is missing. Please try again.')
     }
   }
 
@@ -63,7 +61,7 @@ class TickerCommand extends Command {
   }
 }
 
-TickerCommand.description = `Fetch the ticker for a symbol for an exchange
+TickerCommand.description = `Fetch the 24 hour ticker data
 `
 
 TickerCommand.args = [
