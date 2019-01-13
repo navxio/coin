@@ -1,0 +1,10 @@
+module.exports = ['binance',
+  'bitfinex',
+  'bitstamp',
+  'bittrex',
+  'bleutrade',
+  'coinbase',
+  'exmo',
+  'gdax',
+  'kraken',
+  'poloniex']

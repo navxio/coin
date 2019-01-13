@@ -2,34 +2,26 @@ const {Command, flags} = require('@oclif/command')
 const fs = require('fs-extra')
 const path = require('path')
 const inquirer = require('inquirer')
+const supportedExchanges = require('../lib/supported-exchanges.js')
 
 class ExchangeCommand extends Command {
   async run() {
     const {flags} = this.parse(ExchangeCommand)
     if (flags.available) {
-      this.log('Kraken\nBinance\nBitfinex')
+      this.log(supportedExchanges.join('\n'))
     }
     if (flags.enabled) {
       let enabled = []
       // read the config file, and find out the available keys
       try {
         let userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
-        if (userConfig.kraken) {
-          enabled.push('Kraken')
-        }
-        if (userConfig.binance) {
-          enabled.push('Binance')
-        }
-        if (userConfig.bitfinex) {
-          enabled.push('Bitfinex')
-        }
+        for (const exchangeName in userConfig) enabled.push(exchangeName)
         this.log(enabled.join('\n'))
       } catch (error) {
         this.exit('Error reading config file')
       }
     }
     if (flags.setup) {
-      let supportedExchanges = ['kraken', 'binance', 'bitfinex']
       let exchange = flags.setup
       let userConfig = null
       if (supportedExchanges.indexOf(exchange) > -1) {
@@ -69,7 +61,6 @@ class ExchangeCommand extends Command {
     if (flags.remove) {
       let exchange = flags.remove
       let userConfig = null
-      let supportedExchanges = ['kraken', 'binance', 'bitfinex']
       try {
         userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
       } catch (error) {
@@ -86,6 +77,10 @@ class ExchangeCommand extends Command {
         this.log('Sorry, said exchange is not supported.')
       }
     }
+  }
+
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
   }
 }
 
