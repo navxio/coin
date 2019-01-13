@@ -1,33 +1,24 @@
 const {Command} = require('@oclif/command')
-const fs = require('fs-extra')
-const path = require('path')
 const Table = require('cli-table')
 const {cli} = require('cli-ux')
 const dlog = require('debug')('worker:a')
 const coinTicker = require('coin-ticker')
+const supportedExchanges = require('../lib/supported-exchanges.js')
 
 class TickerCommand extends Command {
   async run() {
     const {args} = this.parse(TickerCommand)
     const {symbol, exchange} = args
-    let userConfig = null
     const CUR = 'USD'  // hardcoded for now
-    try {
-      userConfig = fs.readJSONSync(path.join(this.config.configDir, 'config.json'))
-    } catch (error) {
-      this.error('Cannot find/read the config file')
-      this.exit()
-    }
     if (symbol) {
       // a symbol was specified
       // proceed as expected
       dlog('Found the symbol ' + symbol)
       if (exchange) {
         // an exchange was specified
-        // if it
         dlog('Found the exchange ' + exchange)
         // proceed
-        if (exchange in userConfig) {
+        if (supportedExchanges.indexOf(exchange) > -1) {
           cli.action.start('Loading')
           let ticker = null
           dlog('Fetching the ticker for ' + symbol.toUpperCase() + '/' + CUR)
@@ -40,10 +31,14 @@ class TickerCommand extends Command {
           let table = new Table({
             head: ['Ask', 'Bid', 'Last', 'Volume', 'Low', 'High'],
           })
-          const {ask, bid, last, vol, low, high} = ticker
-          table.push([ask, bid, last, vol, low, high])
-          cli.action.stop()
-          this.log(table.toString())
+          try {
+            const {ask, bid, last, vol, low, high} = ticker
+            table.push([ask, bid, last, vol, low, high])
+            cli.action.stop()
+            this.log(table.toString())
+          } catch (error) {
+            this.log('The symbol appears to be unsupported, please check it and try again.')
+          }
         } else {
           this.log('Exchange "' + this.capitalize(exchange) + '" is unsupported')
         }

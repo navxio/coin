@@ -22,7 +22,7 @@ A command line application to manage your cryptocurrency portfolio across exchan
 * [Usage](#usage)
 * [Commands](#commands)
 * [Supported Exchanges](#supported-exchanges)
-* [Future Work](#future-work)
+* [TODO](#todo)
 * [License](#license)
 <!-- tocstop -->
 # Installation
@@ -171,14 +171,10 @@ _See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v1
 <!-- commandsstop -->
 
 # Supported Exchanges
-* [Binance](https://www.binance.com)
-* [Kraken](https://www.kraken.com)
-* [Bitfinex](https://www.bitfinex.com)
+[src/lib/supported-exchanges.js](https://github.com/navdeepio/coin/blob/v0.1.9/src/lib/supported-exchanges.js)
 
-# Future Work
-* Delegate functionality to plugins
+# TODO
 * Place orders
-* More exchanges
 * Coin Preferences
 
 # License
