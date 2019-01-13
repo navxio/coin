@@ -2,6 +2,8 @@ const {Command} = require('@oclif/command')
 const fs = require('fs-extra')
 const path = require('path')
 const inquirer = require('inquirer')
+const _ = require('lodash')
+const supportedExchanges = require('../lib/supported-exchanges.js')
 
 class SetupCommand extends Command {
   async run() {
@@ -22,37 +24,18 @@ class SetupCommand extends Command {
       this.error(error)
     }
     if (setup) {
-      let answers = await inquirer.prompt([{type: 'checkbox', message: 'Select the exchanges you wish to activate', choices: ['Kraken', 'Binance', 'Bitfinex'], name: 'exchanges'}])
-      if (answers.exchanges.indexOf('Kraken') > -1) {
+      const choices = supportedExchanges.map(exchange => this.capitalize(exchange))
+      let answers = await inquirer.prompt([{type: 'checkbox', message: 'Select the exchanges you wish to activate', choices, name: 'exchanges'}])
+      _.each(answers, async function (answer) {
         let subConfig = {}
-        this.log('Please input config variables for Kraken')
+        this.log('Please input configuration variables for ' + this.capitalize(answer) + ':')
         let obj = await inquirer.prompt([{type: 'input', message: 'API Key', name: 'apiKey'}])
         subConfig.apiKey = obj.apiKey
         obj = await inquirer.prompt([{type: 'input', message: 'API Secret', name: 'secret'}])
         this.log('OK')
         subConfig.secret = obj.secret
-        config.kraken = subConfig
-      }
-      if (answers.exchanges.indexOf('Binance') > -1) {
-        let subConfig = {}
-        this.log('Please input config variables for Binance')
-        let obj = await inquirer.prompt([{type: 'input', message: 'API Key', name: 'apiKey'}])
-        subConfig.apiKey = obj.apiKey
-        obj = await inquirer.prompt([{type: 'input', message: 'API Secret', name: 'secret'}])
-        this.log('OK')
-        subConfig.secret = obj.secret
-        config.binance = subConfig
-      }
-      if (answers.exchanges.indexOf('Bitfinex') > -1) {
-        let subConfig = {}
-        this.log('Please input config variables for Bitfinex')
-        let obj = await inquirer.prompt([{type: 'input', message: 'API Key', name: 'apiKey'}])
-        subConfig.apiKey = obj.apiKey
-        obj = await inquirer.prompt([{type: 'input', message: 'API Secret', name: 'secret'}])
-        this.log('OK')
-        subConfig.secret = obj.secret
-        config.bitfinex = subConfig
-      }
+        config[answer] = subConfig
+      })
       fs.writeJsonSync(path.join(this.config.configDir, 'config.json'), config)
       this.log('Successfully wrote ' + (path.join(this.config.configDir, 'config.json')))
     }

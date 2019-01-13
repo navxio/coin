@@ -8,17 +8,17 @@ class ExchangeCommand extends Command {
   async run() {
     const {flags} = this.parse(ExchangeCommand)
     if (flags.available) {
-      this.log(supportedExchanges.join('\n'))
+      this.log(supportedExchanges.map(exchange => this.capitalize(exchange)).join('\n'))
     }
     if (flags.enabled) {
       let enabled = []
       // read the config file, and find out the available keys
       try {
         let userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
-        for (const exchangeName in userConfig) enabled.push(exchangeName)
+        for (const exchangeName in userConfig) enabled.push(this.capitalize(exchangeName))
         this.log(enabled.join('\n'))
       } catch (error) {
-        this.exit('Error reading config file')
+        this.exit('Error reading the config file')
       }
     }
     if (flags.setup) {
