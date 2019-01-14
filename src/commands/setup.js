@@ -40,6 +40,10 @@ class SetupCommand extends Command {
       this.log('Successfully wrote ' + (path.join(this.config.configDir, 'config.json')))
     }
   }
+
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
 }
 
 SetupCommand.description = `Run through the setup wizard

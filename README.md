@@ -28,7 +28,6 @@ A command line application to manage your cryptocurrency portfolio across exchan
 # Installation
 
 With npm
-
 ```
 [sudo] npm i -g @navxio/coin
 ```
