@@ -2,7 +2,6 @@ const {Command} = require('@oclif/command')
 const fs = require('fs-extra')
 const path = require('path')
 const inquirer = require('inquirer')
-const _ = require('lodash')
 const supportedExchanges = require('../lib/supported-exchanges.js')
 
 class SetupCommand extends Command {
@@ -26,7 +25,7 @@ class SetupCommand extends Command {
     if (setup) {
       const choices = supportedExchanges.map(exchange => this.capitalize(exchange))
       let answers = await inquirer.prompt([{type: 'checkbox', message: 'Select the exchanges you wish to activate', choices, name: 'exchanges'}])
-      _.each(answers, async function (answer) {
+      answers.forEach(async function (answer) {
         let subConfig = {}
         this.log('Please input configuration variables for ' + this.capitalize(answer) + ':')
         let obj = await inquirer.prompt([{type: 'input', message: 'API Key', name: 'apiKey'}])

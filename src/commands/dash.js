@@ -2,9 +2,9 @@ const {Command, flags} = require('@oclif/command')
 const fs = require('fs-extra')
 const path = require('path')
 const Table = require('cli-table')
-const _ = require('lodash')
 const ccxt = require('ccxt')
 const Listr = require('listr')
+const coinTicker = require('coin-ticker')
 
 class DashCommand extends Command {
   run() {
@@ -17,19 +17,7 @@ class DashCommand extends Command {
     } catch (error) {
       this.exit('Cannot find / read config file')
     }
-    for (const exchange in userConfig) {
-      if ({}.hasOwnProperty.call(userConfig, exchange)) {
-        const ExchangeClass = ccxt[exchange]
-        const config = userConfig[exchange]
-        const exchangeClass = new ExchangeClass({
-          apiKey: config.apiKey,
-          secret: config.secret,
-          timeout: 30000,
-          enableRateLimit: true,
-        })
-        exchanges.push({exchange, eClass: exchangeClass})
-      }
-    }
+
     if (flags.exchange) {
       // fetch and print only from that exchange
       // launch a spinner
@@ -40,11 +28,31 @@ class DashCommand extends Command {
         this.log('Sorry, said exchange is not supported or configured.')
       }
     } else {
+      for (const exchange in userConfig) {
+        if ({}.hasOwnProperty.call(userConfig, exchange)) {
+          const ExchangeClass = ccxt[exchange]
+          const config = userConfig[exchange]
+          const exchangeClass = new ExchangeClass({
+            apiKey: config.apiKey,
+            secret: config.secret,
+            timeout: 30000,
+            enableRateLimit: true,
+          })
+          exchanges.push({exchange, eClass: exchangeClass})
+        }
+      }
+
+      if (flags.detailed) {
+        // do something here
+
+      } else {
+
+      }
       this.log('Fetching portfolio...')
       table = new Table({
         head: ['Cryptocurrency', 'Exchange', 'Amount'],
       })
-      let tasksArray = _.map(exchanges, obj => {
+      let tasksArray = exchanges.map(obj => {
         return {
           title: this.capitalize(obj.exchange),
           task: ctx =>
