@@ -1,4 +1,4 @@
-coin
+
 =======
 
 An experimental command line application to track/manage your cryptocurrency portfolio across exchanges
@@ -10,7 +10,6 @@ An experimental command line application to track/manage your cryptocurrency por
 | ethereum | bitfinex | 2      | $200  |
 | total    |          |        | $2500 |
 
-#### Note: Under heavy development
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@navxio/coin.svg)](https://npmjs.org/package/@navxio/coin)
 [![Downloads/week](https://img.shields.io/npm/dw/@navxio/coin.svg)](https://npmjs.org/package/@navxio/coin)
@@ -22,8 +21,9 @@ An experimental command line application to track/manage your cryptocurrency por
 * [Usage](#usage)
 * [Commands](#commands)
 * [Supported Exchanges](#supported-exchanges)
-* [TODO](#todo)
+* [Planned Features](#Planned Features)
 * [License](#license)
+
 <!-- tocstop -->
 # Installation
 
@@ -172,7 +172,7 @@ _See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v1
 # Supported Exchanges
 [src/lib/supported-exchanges.js](https://github.com/navdeepio/coin/blob/v0.1.9/src/lib/supported-exchanges.js)
 
-# TODO
+# Planned Features
 * Place orders
 * Coin Preferences
 
