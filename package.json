@@ -1,6 +1,6 @@
 {
   "name": "@navxio/coin",
-  "description": "A command line application to track your cryptocurrency portfolio across different exchanges",
+  "description": "An experimental command line application to track/manage your cryptocurrency portfolio across different exchanges",
   "version": "0.1.9",
   "author": "Nav Saini @navdeepio",
   "bin": {

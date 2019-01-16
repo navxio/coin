@@ -17,16 +17,18 @@ class DashCommand extends Command {
     } catch (error) {
       this.exit('Cannot find / read config file')
     }
-    for (const exchange of Object.keys(userConfig)) {
-      const ExchangeClass = ccxt[exchange]
-      const config = userConfig[exchange]
-      const exchangeClass = new ExchangeClass({
-        apiKey: config.apiKey,
-        secret: config.secret,
-        timeout: 30000,
-        enableRateLimit: true,
-      })
-      exchanges.push({exchange, eClass: exchangeClass})
+    for (const exchange in userConfig) {
+      if ({}.hasOwnProperty.call(userConfig, exchange)) {
+        const ExchangeClass = ccxt[exchange]
+        const config = userConfig[exchange]
+        const exchangeClass = new ExchangeClass({
+          apiKey: config.apiKey,
+          secret: config.secret,
+          timeout: 30000,
+          enableRateLimit: true,
+        })
+        exchanges.push({exchange, eClass: exchangeClass})
+      }
     }
     if (flags.exchange) {
       // fetch and print only from that exchange
@@ -49,7 +51,7 @@ class DashCommand extends Command {
             obj.eClass.fetchBalance().then(({total}) => {
               const name = obj.exchange
               let portfolio = {}
-              for (const currency of Object.keys(total)) {
+              for (const currency in total) {
                 if (total[currency] > 0) {
                   portfolio[currency] = total[currency]
                 }
@@ -63,19 +65,27 @@ class DashCommand extends Command {
       let tasks = new Listr(tasksArray, {concurrent: true, exitOnError: false})
       tasks.run().then(context => {
         // push it to table now
-        for (const exchange of Object.keys(context)) {
-          const portfolio = context[exchange]
-          for (const symbol of Object.keys(portfolio)) {
-            table.push([symbol, this.capitalize(exchange), portfolio[symbol]])
+        for (const exchange in context) {
+          if ({}.hasOwnProperty.call(context, exchange)) {
+            const portfolio = context[exchange]
+            for (const symbol in portfolio) {
+              if ({}.hasOwnProperty.call(portfolio, symbol)) {
+                table.push([symbol, this.capitalize(exchange), portfolio[symbol]])
+              }
+            }
           }
         }
         this.log(table.toString())
       }).catch(error => {
         const {context} = error
-        for (const exchange of Object.keys(context)) {
-          const portfolio = context[exchange]
-          for (const symbol of Object.keys(portfolio)) {
-            table.push([symbol, this.capitalize(exchange), portfolio[symbol]])
+        for (const exchange in context) {
+          if ({}.hasOwnProperty.call(context, exchange)) {
+            const portfolio = context[exchange]
+            for (const symbol in portfolio) {
+              if ({}.hasOwnProperty.call(portfolio, symbol)) {
+                table.push([symbol, this.capitalize(exchange), portfolio[symbol]])
+              }
+            }
           }
         }
         this.log(table.toString())
@@ -94,7 +104,7 @@ Display user portfolio in tabular form
 
 DashCommand.flags = {
   detailed: flags.boolean({char: 'd', description: 'Detailed portfolio with values across exchanges'}),
-  exchange: flags.string({char: 'e', description: 'The exchange to fetch the portfolio from'}),
+  exchange: flags.string({char: 'e', description: 'The exchange to fetch the data from'}),
 }
 
 module.exports = DashCommand

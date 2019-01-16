@@ -15,7 +15,11 @@ class ExchangeCommand extends Command {
       // read the config file, and find out the available keys
       try {
         let userConfig = await fs.readJSON(path.join(this.config.configDir, 'config.json'))
-        for (const exchangeName in userConfig) enabled.push(this.capitalize(exchangeName))
+        for (const exchangeName in userConfig) {
+          if ({}.hasOwnProperty.call(userConfig, exchangeName)) {
+            enabled.push(this.capitalize(exchangeName))
+          }
+        }
         this.log(enabled.join('\n'))
       } catch (error) {
         this.exit('Error reading the config file')

@@ -1,7 +1,7 @@
 coin
 =======
 
-A command line application to manage your cryptocurrency portfolio across exchanges
+An experimental command line application to track/manage your cryptocurrency portfolio across exchanges
 
 | currency | exchange | amount | value |
 |----------|----------|--------|-------|
