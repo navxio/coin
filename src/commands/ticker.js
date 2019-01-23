@@ -19,7 +19,7 @@ class TickerCommand extends Command {
         dlog('Found the exchange ' + exchange)
         // proceed
         if (supportedExchanges.indexOf(exchange) > -1) {
-          cli.action.start('Loading')
+          cli.action.start(`Loading(${CUR})`)
           let ticker = null
           dlog('Fetching the ticker for ' + symbol.toUpperCase() + '/' + CUR)
           try {
