@@ -23,7 +23,6 @@ class DashCommand extends Command {
       if (flags.detailed) {
         const exchange = flags.exchange
         if (userConfig[exchange]) {
-          cli.action.start(`Loading detailed portfolio from ${this.capitalize(exchange)}`)
           let table = new Table({
             head: ['Symbol', 'Amount', 'Value'],
           })
@@ -38,43 +37,26 @@ class DashCommand extends Command {
           new Listr([
             {
               title: 'Fetch portfolio',
-              task: context => {
+              task: context => exchangeClass.fetchBalance().then(({total}) => {
                 let portfolio = {}
-                exchangeClass.fetchBalance().then(({total}) => {
-                  for (const symbol in total) {
-                    if (total[symbol] > 0) {
-                      portfolio[symbol] = total[symbol]
-                    }
+                for (const symbol in total) {
+                  if (total[symbol] > 0) {
+                    portfolio[symbol] = total[symbol]
                   }
-                  context.portfolio = portfolio
-                })
-              },
+                }
+                context.portfolio = portfolio
+              }),
             },
             {
-              title: 'Fetch tickers',
-              task: context => {
-                const {portfolio} = context
-                let prices = {}
-                Object.keys(portfolio).map(async symbol => {
-                  const ticker = await coinTicker(exchange, symbol + '_' + CUR)
-                  prices[symbol] = this.average(ticker)
-                })
-                context.prices = prices
-              },
+              title: 'Fetch prices',
+              task: context => Promise.all(Object.keys(context.portfolio).map(symbol => {
+                return coinTicker(exchange, symbol + '_' + CUR)
+              })).then(result => {
+                context.prices = result
+              }),
             },
-          ]).run().then(result => {
+          ], {concurrent: false}).run({}).then(result => {
             const {portfolio, prices} = result
-            // for (const exchange in portfolio) {
-            //   if ({}.hasOwnProperty.call(portfolio, exchange)) {
-            //     for (const symbol in portfolio[exchange]) {
-            //       if ({}.hasOwnProperty.call(portfolio[exchange], symbol)) {
-            //         const amount = portfolio[exchange][symbol]
-            //         const value = prices[symbol] * amount
-            //         table.push([exchange, symbol, amount, value])
-            //       }
-            //     }
-            //   }
-            // }
             for (const symbol in portfolio) {
               if ({}.hasOwnProperty.call(portfolio, symbol)) {
                 const amount = portfolio[symbol]
@@ -82,9 +64,8 @@ class DashCommand extends Command {
                 table.push([symbol, amount, value])
               }
             }
-            cli.action.stop()
             this.log(table.toString())
-          })
+          }).catch(error => this.log(error))
         } else {
           this.log('Sorry, said exchange is not supported or configured.')
         }

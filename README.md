@@ -1,14 +1,6 @@
 
-=======
+> An experimental command line application to track/manage your cryptocurrency portfolio across exchanges
 
-An experimental command line application to track/manage your cryptocurrency portfolio across exchanges
-
-| currency | exchange | amount | value |
-|----------|----------|--------|-------|
-| omisego  | kraken   | 33     | $300  |
-| bitcoin  | binance  | 0.02   | $2000 |
-| ethereum | bitfinex | 2      | $200  |
-| total    |          |        | $2500 |
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@navxio/coin.svg)](https://npmjs.org/package/@navxio/coin)
@@ -92,8 +84,8 @@ USAGE
   $ coin dash
 
 OPTIONS
-  -d, --detailed           Detailed portfolio with values across exchanges
-  -e, --exchange=exchange  The exchange to fetch the portfolio from
+  -d, --detailed             Detailed portfolio with values across exchanges
+  -e, --exchange=<exchange>  The exchange to fetch the portfolio from
 
 DESCRIPTION
   Display user portfolio in tabular form
@@ -112,8 +104,8 @@ USAGE
 OPTIONS
   -a, --available      List supported exchanges
   -e, --enabled        List enabled exchanges
-  -r, --remove=remove  Remove an exchange from coin
-  -s, --setup=setup    Setup a new exchange
+  -r, --remove=<exchange>  Remove an exchange from coin
+  -s, --setup=<exchange>    Setup a new exchange
 ```
 
 _See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.9/src/commands/exchange.js)_
@@ -143,6 +135,7 @@ Run through the setup wizard
 USAGE
   $ coin setup
 ```
+Launch the setup wizard
 
 _See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.9/src/commands/setup.js)_
 
