@@ -1,3 +1,4 @@
+#coin
 
 > An experimental command line application to track/manage your cryptocurrency portfolio across exchanges
 
