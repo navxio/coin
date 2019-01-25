@@ -13,7 +13,7 @@
 * [Usage](#usage)
 * [Commands](#commands)
 * [Supported Exchanges](#supported-exchanges)
-* [Planned Features](#Planned Features)
+* [Planned Features](#planned-features)
 * [License](#license)
 
 <!-- tocstop -->
