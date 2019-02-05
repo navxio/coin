@@ -166,8 +166,9 @@ _See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v1
 [src/lib/supported-exchanges.js](https://github.com/navdeepio/coin/blob/v0.1.9/src/lib/supported-exchanges.js)
 
 # Planned Features
-* Place orders
-* Coin Preferences
+- [ ] Price Graphs
+- [ ] Place Orders
+- [ ] Coin Preferences
 
 # License
 GPL v3.0
