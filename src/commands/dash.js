@@ -128,7 +128,7 @@ class DashCommand extends Command {
         })
         new Listr([
           {
-            title: 'Fetching portfolio',
+            title: 'Fetch portfolio',
             task: ctx => Promise.all(exchanges.map(exchange =>
               exchange.fetchBalance()
             )).then(result => {
@@ -141,10 +141,10 @@ class DashCommand extends Command {
             }),
           },
           {
-            title: 'Fetching prices',
+            title: 'Fetch prices',
             task: ctx => Promise.all(Object.keys(ctx.portfolio).map(exchange => {
               const coins = ctx.portfolio[exchange]
-              return Promise.all(Object.keys(coins).map(symbol => coinTicker(exchange, symbol.toUpperCase() + '_' + CUR)
+              return Promise.all(Object.keys(coins).filter(coin => coins[coin] > 0).map(symbol => coinTicker(exchange, symbol.toUpperCase() + '_' + CUR)
               ))
             })).then(result => {
               ctx.prices = result
@@ -164,8 +164,13 @@ class DashCommand extends Command {
             if ({}.hasOwnProperty.call(gPrices, exchange)) {
               // do something
               const values = gPrices[exchange]
-              averages[exchange] = values.reduce((accumulator, currentValue) => {
-                const symbol = currentValue.pair.split('_')[0]
+              averages[exchange] = values.reduce((accumulator, currentValue, currentIndex) => {
+                let symbol = null
+                try {
+                  symbol = currentValue.pair.split('_')[0]
+                } catch (error) {
+                  this.error(`Exchange ${exchanges[currentIndex].name} returned incompatible data, cannot proceed.`)
+                }
                 const average = this.average(currentValue)
                 accumulator[symbol] = average
                 return accumulator
