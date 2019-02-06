@@ -79,7 +79,8 @@ USAGE
 ## `coin dash`
 
 Display user portfolio in tabular form
-
+![Coin Dash screenshot](img/coin_dash.png)
+![Detailed Portfolio Screenshot](img/detailed_portfolio.png)
 ```
 USAGE
   $ coin dash
@@ -87,9 +88,6 @@ USAGE
 OPTIONS
   -D, --detailed           Detailed portfolio with values across exchanges
   -e, --exchange=exchange  The exchange to fetch the data from
-
-DESCRIPTION
-  Display user portfolio in tabular form
 ```
 
 _See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.2.0/src/commands/dash.js)_
@@ -142,7 +140,7 @@ _See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.2.0
 ## `coin ticker [EXCHANGE] [SYMBOL]`
 
 Fetch the 24 hour ticker data
-
+![Ticker Screenshot](img/ticker.png)
 ```
 USAGE
   $ coin ticker [EXCHANGE] [SYMBOL]
@@ -163,7 +161,7 @@ _See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v1
 <!-- commandsstop -->
 
 # Supported Exchanges
-[src/lib/supported-exchanges.js](https://github.com/navdeepio/coin/blob/v0.1.9/src/lib/supported-exchanges.js)
+[Supported Exchanges](src/lib/supported-exchanges.js)
 
 # Planned Features
 - [ ] Price Graphs

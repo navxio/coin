@@ -263,8 +263,7 @@ class DashCommand extends Command {
   }
 }
 
-DashCommand.description = `
-Display user portfolio in tabular form
+DashCommand.description = `Display user portfolio in tabular form
 `
 
 DashCommand.flags = {
