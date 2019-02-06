@@ -9,6 +9,7 @@
 [![License](https://img.shields.io/npm/l/@navxio/coin.svg)](https://github.com/navdeepio/coin/blob/master/package.json)
 
 <!-- toc -->
+* [coin](#coin)
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Usage](#usage)
@@ -16,7 +17,6 @@
 * [Supported Exchanges](#supported-exchanges)
 * [Planned Features](#planned-features)
 * [License](#license)
-
 <!-- tocstop -->
 # Installation
 
@@ -60,7 +60,7 @@ $ npm install -g @navxio/coin
 $ coin COMMAND
 running command...
 $ coin (-v|--version|version)
-@navxio/coin/0.1.9 linux-x64 node-v11.6.0
+@navxio/coin/0.2.0 linux-x64 node-v11.9.0
 $ coin --help [COMMAND]
 USAGE
   $ coin COMMAND
@@ -85,14 +85,14 @@ USAGE
   $ coin dash
 
 OPTIONS
-  -d, --detailed             Detailed portfolio with values across exchanges
-  -e, --exchange=<exchange>  The exchange to fetch the portfolio from
+  -D, --detailed           Detailed portfolio with values across exchanges
+  -e, --exchange=exchange  The exchange to fetch the data from
 
 DESCRIPTION
   Display user portfolio in tabular form
 ```
 
-_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.1.9/src/commands/dash.js)_
+_See code: [src/commands/dash.js](https://github.com/navdeepio/coin/blob/v0.2.0/src/commands/dash.js)_
 
 ## `coin exchange`
 
@@ -105,11 +105,11 @@ USAGE
 OPTIONS
   -a, --available      List supported exchanges
   -e, --enabled        List enabled exchanges
-  -r, --remove=<exchange>  Remove an exchange from coin
-  -s, --setup=<exchange>    Setup a new exchange
+  -r, --remove=remove  Remove an exchange from coin
+  -s, --setup=setup    Setup a new exchange
 ```
 
-_See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.1.9/src/commands/exchange.js)_
+_See code: [src/commands/exchange.js](https://github.com/navdeepio/coin/blob/v0.2.0/src/commands/exchange.js)_
 
 ## `coin help [COMMAND]`
 
@@ -136,9 +136,8 @@ Run through the setup wizard
 USAGE
   $ coin setup
 ```
-Launch the setup wizard
 
-_See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.1.9/src/commands/setup.js)_
+_See code: [src/commands/setup.js](https://github.com/navdeepio/coin/blob/v0.2.0/src/commands/setup.js)_
 
 ## `coin ticker [EXCHANGE] [SYMBOL]`
 
@@ -149,7 +148,7 @@ USAGE
   $ coin ticker [EXCHANGE] [SYMBOL]
 ```
 
-_See code: [src/commands/ticker.js](https://github.com/navdeepio/coin/blob/v0.1.9/src/commands/ticker.js)_
+_See code: [src/commands/ticker.js](https://github.com/navdeepio/coin/blob/v0.2.0/src/commands/ticker.js)_
 
 ## `coin update [CHANNEL]`
 
