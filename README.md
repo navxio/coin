@@ -9,7 +9,6 @@
 [![License](https://img.shields.io/npm/l/@navxio/coin.svg)](https://github.com/navdeepio/coin/blob/master/package.json)
 
 <!-- toc -->
-* [coin](#coin)
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Usage](#usage)
