@@ -76,8 +76,8 @@ USAGE
 * [`coin update [CHANNEL]`](#coin-update-channel)
 
 ## `coin dash`
-
 Display user portfolio in tabular form
+
 ![Coin Dash screenshot](img/coin_dash.png)
 ![Detailed Portfolio Screenshot](img/detailed_portfolio.png)
 ```
